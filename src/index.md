@@ -9,6 +9,7 @@ picture-round: false
 side-by-side: true
 og-picture: https://basicpage.github.io/img/profile.png
 codeberg: https://codeberg.org/ewendufour
+github: https://github.com/ewendufour
 linkedin: https://www.linkedin.com/in/ewen-dufour-07181b1b1
 footer: >-
   Based on the
@@ -151,10 +152,7 @@ papers:
 ```
 -->
 # Education
-
-- I was able to paint with my hands in kindergarten.
-- I went to high school where I studied stuff.
-- Master degree in hand painting.
+## Internships
 <!--
 # Teaching
 
