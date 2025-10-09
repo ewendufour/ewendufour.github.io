@@ -28,7 +28,7 @@ My workflow is usually to use <kbd>Ctrl</kbd> + <kbd>C</kbd> /
 > This website is obviously a fake one, but it's meant to be very easy to use.
 > Just follow the README of the
 > [Github repository](https://github.com/basicpage/basicpage.github.io).
-
+<!--
 # Publications
 
 ## Conference papers
@@ -154,13 +154,13 @@ papers:
   "year": "???"
 }
 ```
-
+-->
 # Education
 
 - I was able to paint with my hands in kindergarten.
 - I went to high school where I studied stuff.
 - Master degree in hand painting.
-
+<!--
 # Teaching
 
 - I am teaching the TD sessions on the 👽 science course.
@@ -170,3 +170,5 @@ papers:
 - 32 reviews for Journal of Awesomeness.
 - 1 review for a cool conference.
 - PC member of the journal of my school.
+
+-->
