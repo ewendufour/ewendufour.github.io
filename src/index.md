@@ -1,26 +1,17 @@
 ---
 title: Template homepage
-author: Templato Urnehm
+author: Ewen DUFOUR
 shortbio: PhD student in 👽 science
-description-meta: PhD student in 👽 science
 og-url: https://basicpage.github.io
-location: Some lab, office 777
 email: noreply@noemail.com
 clickable-email: false
 picture: img/profile.png
 picture-round: false
 side-by-side: true
-pronouns: They/Them
 og-picture: https://basicpage.github.io/img/profile.png
 orcid: 0000-0000-0000-0000
-dblp: https://dblp.org/
-scholar: https://scholar.google.com/
-hal: https://hal.science/
-mastodon: https://lipn.info
 github: basicpage
 gitlab: gitlab
-bitbucket: bitbucket.com
-bluesky: https://bsky.app/
 linkedin: https://www.linkedin.com
 footer: >-
   Based on the
