@@ -1,7 +1,7 @@
 ---
 title: Template homepage
 author: Ewen DUFOUR
-shortbio: PhD student in 👽 science
+shortbio: M2 student in computer science
 email: ewen.dufour@protonmail.com
 clickable-email: true
 picture: img/profile.png
@@ -16,10 +16,8 @@ footer: >-
   made to be easy to use! 🎓
 ---
 
-I am a (fake) PhD student, working on 👽 science on all kinds of related topics.
+I am a M2 student in computer science at ENS Paris-Saclay.
 
-My workflow is usually to use <kbd>Ctrl</kbd> + <kbd>C</kbd> /
-<kbd>Ctrl</kbd> + <kbd>V</kbd>. 🫣
 <!--
 > [!NOTE]
 > This website is obviously a fake one, but it's meant to be very easy to use.
