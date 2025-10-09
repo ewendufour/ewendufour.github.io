@@ -23,12 +23,12 @@ I am a (fake) PhD student, working on 👽 science on all kinds of related topic
 
 My workflow is usually to use <kbd>Ctrl</kbd> + <kbd>C</kbd> /
 <kbd>Ctrl</kbd> + <kbd>V</kbd>. 🫣
-
+<!--
 > [!NOTE]
 > This website is obviously a fake one, but it's meant to be very easy to use.
 > Just follow the README of the
 > [Github repository](https://github.com/basicpage/basicpage.github.io).
-<!--
+
 # Publications
 
 ## Conference papers
