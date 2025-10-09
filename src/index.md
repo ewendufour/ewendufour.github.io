@@ -2,16 +2,15 @@
 title: Template homepage
 author: Ewen DUFOUR
 shortbio: PhD student in 👽 science
-og-url: https://basicpage.github.io
-email: noreply@noemail.com
-clickable-email: false
+email: ewen.dufour@protonmail.com
+clickable-email: true
 picture: img/profile.png
 picture-round: false
 side-by-side: true
 og-picture: https://basicpage.github.io/img/profile.png
 orcid: 0000-0000-0000-0000
 github: basicpage
-gitlab: gitlab
+codeberg: https://codeberg.org/ewendufour
 linkedin: https://www.linkedin.com
 footer: >-
   Based on the
