@@ -9,7 +9,7 @@ picture-round: false
 side-by-side: true
 og-picture: https://basicpage.github.io/img/profile.png
 codeberg: https://codeberg.org/ewendufour
-linkedin: https://www.linkedin.com](https://www.linkedin.com/in/ewen-dufour-07181b1b1
+linkedin: https://www.linkedin.com/in/ewen-dufour-07181b1b1
 footer: >-
   Based on the
   [basicpage template](https://github.com/basicpage/basicpage.github.io),
