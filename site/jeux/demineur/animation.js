@@ -107,13 +107,14 @@ window.AnimationDefaite = (function () {
     return (cache[nom] = toile.toDataURL());
   };
 
-  var scene = null, minuteurs = [], rythme = null;
+  var scene = null, bouton = null, minuteurs = [], rythme = null;
 
   var arreter = function () {
     minuteurs.forEach(clearTimeout);
     minuteurs = [];
     if (rythme !== null) { clearInterval(rythme); rythme = null; }
     if (scene) { scene.remove(); scene = null; }
+    if (bouton) { bouton.remove(); bouton = null; }
   };
 
   var eclats = function (largeur, hauteur, centre) {
@@ -157,14 +158,14 @@ window.AnimationDefaite = (function () {
 
     var centre = { x: largeur / 2, y: hauteur / 2 };
     var montrerBouton = function () {
-      var b = document.createElement("button");
-      b.type = "button";
-      b.className = "bouton bouton-plein dem-rejouer";
-      b.textContent = options.rejouer;
-      b.addEventListener("click", options.surRejouer);
-      scene.removeAttribute("aria-hidden");
-      scene.appendChild(b);
-      b.focus({ preventScroll: true });
+      // Dans le cadre et non dans la scène : centré sur la boîte de jeu entière.
+      bouton = document.createElement("button");
+      bouton.type = "button";
+      bouton.className = "bouton bouton-plein dem-rejouer";
+      bouton.textContent = options.rejouer;
+      bouton.addEventListener("click", options.surRejouer);
+      cadre.appendChild(bouton);
+      bouton.focus({ preventScroll: true });
     };
 
     var moinsAnime = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
