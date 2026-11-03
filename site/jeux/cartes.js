@@ -443,6 +443,8 @@
     historique = [];
     selection = null;
     message = "";
+    // Toutes retournées : la pioche ne doit rien garder de la partie précédente.
+    cartes.forEach(function (c) { c.face = false; });
     var melange = melanger(cartes.slice());
     jeu.distribuer(melange);
     rafraichir(false);
