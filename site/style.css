@@ -666,3 +666,209 @@ nav { align-items: center; }
   color: var(--texte);
   background: var(--surface);
 }
+
+/* ==========================================================================
+   Jeux : page de liste et morpion
+   Tout passe par les variables du thème : clair, sombre et palettes néon
+   s'appliquent sans règle supplémentaire, sauf les halos en fin de partie.
+   ========================================================================== */
+
+.entete-page h1 {
+  margin: 0 0 0.4rem;
+  font-size: clamp(2rem, 5vw, 2.6rem);
+}
+
+.entete-page p { margin: 0; color: var(--discret); }
+
+[data-theme="neon"] .entete-page h1 {
+  color: var(--majeur-vif);
+  text-shadow: 0 0 20px rgba(var(--majeur-rgb), 0.65), 0 0 60px rgba(var(--majeur-rgb), 0.25);
+}
+
+.liste-jeux {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.liste-jeux a {
+  display: block;
+  height: 100%;
+  padding: 0.9rem 1.1rem;
+  color: var(--texte);
+  text-decoration: none;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  background: var(--surface);
+  transition: border-color 0.15s;
+}
+
+.liste-jeux a:hover { border-color: var(--accent); }
+
+.liste-jeux strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.2rem;
+}
+
+.liste-jeux span { font-size: 0.92rem; color: var(--discret); }
+
+[data-theme="neon"] .liste-jeux a:hover {
+  border-color: var(--majeur);
+  box-shadow: 0 0 12px rgba(var(--majeur-rgb), 0.35);
+}
+
+/* --- Morpion ------------------------------------------------------------- */
+
+.morpion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.niveaux {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.niveaux legend {
+  float: left;
+  margin-right: 0.5rem;
+  padding: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--discret);
+}
+
+.niveaux label { position: relative; cursor: pointer; }
+
+/* Boutons radio cachés mais toujours utilisables au clavier. */
+.niveaux input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.niveaux span {
+  display: block;
+  padding: 0.25rem 0.85rem;
+  font-size: 0.92rem;
+  color: var(--discret);
+  border: 1px solid var(--bordure);
+  border-radius: 999px;
+  background: var(--surface);
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+
+.niveaux input:hover + span { color: var(--accent); border-color: var(--accent); }
+
+.niveaux input:checked + span {
+  color: var(--surface);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.niveaux input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.morpion-statut {
+  min-height: 1.65em;
+  margin: 0;
+  font-weight: 500;
+  text-align: center;
+}
+
+.grille {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  width: min(100%, 20rem);
+}
+
+.case {
+  aspect-ratio: 1;
+  padding: 18%;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  background: var(--surface);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+}
+
+.case[aria-disabled="true"] { cursor: default; }
+
+.case[aria-disabled="false"]:hover { border-color: var(--accent); background: var(--accent-doux); }
+
+.case[data-joueur="X"] { color: var(--accent); }
+.case[data-joueur="O"] { color: var(--chaud); }
+
+.case svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  animation: case-apparait 0.16s ease-out;
+}
+
+@keyframes case-apparait {
+  from { transform: scale(0.6); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case svg { animation: none; }
+}
+
+.case.gagnante { border-color: currentColor; background: var(--accent-doux); }
+
+[data-theme="neon"] .case svg { filter: drop-shadow(0 0 5px currentColor); }
+
+[data-theme="neon"] .case[aria-disabled="false"]:hover {
+  border-color: var(--majeur);
+  box-shadow: 0 0 12px rgba(var(--majeur-rgb), 0.35);
+}
+
+[data-theme="neon"] .case.gagnante { box-shadow: 0 0 16px currentColor; }
+
+button.bouton {
+  font: inherit;
+  font-size: 0.92rem;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.score {
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  text-align: center;
+}
+
+.score dt {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--discret);
+}
+
+.score dd {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
