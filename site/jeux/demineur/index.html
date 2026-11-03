@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Démineur · Ewen DUFOUR</title>
+  <meta name="description" content="Démineur à variantes, sur des grilles qui se résolvent sans jamais deviner.">
+  <meta name="robots" content="noindex">
+  <meta name="color-scheme" content="light dark">
+  <!-- Applique le mode néon avant l'affichage, pour éviter un flash. -->
+  <script>(function(){var r=document.documentElement,q=null,t=null,p=null,ok=/^(violet|vert|orange|bleu|rouge)$/;try{q=new URLSearchParams(location.search);t=q.get("theme");p=q.get("palette")}catch(e){}if(!ok.test(p||""))p=null;try{if(t==="neon")localStorage.setItem("theme","neon");else if(t==="normal")localStorage.removeItem("theme");else t=localStorage.getItem("theme");if(p)localStorage.setItem("palette",p);else p=localStorage.getItem("palette")}catch(e){}if(t==="neon")r.dataset.theme="neon";if(ok.test(p||""))r.dataset.palette=p})()</script>
+  <link rel="stylesheet" href="../../style.css?v=dev">
+  <script src="../../theme.js?v=dev" defer></script>
+  <script src="moteur.js?v=dev" defer></script>
+  <script src="animation.js?v=dev" defer></script>
+  <script src="demineur.js?v=dev" defer></script>
+</head>
+<body>
+
+  <header class="entete-page">
+    <h1>Démineur</h1>
+    <p>Carrés ou hexagones, tore ou bouteille de Klein : toutes les grilles se résolvent par la logique, sans deviner.</p>
+  </header>
+
+  <nav>
+    <a href="../../index.html">Accueil</a>
+    <a href="../index.html">Jeux</a>
+    <div class="reglages">
+      <a class="langue" href="../../en/games/minesweeper/index.html" hreflang="en" data-pos="gauche" aria-label="English version">
+        <span>FR</span><span lang="en">EN</span>
+      </a>
+      <button class="neon-btn" type="button" aria-pressed="false"><svg class="icone" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0l1.8 6.2L16 8l-6.2 1.8L8 16l-1.8-6.2L0 8l6.2-1.8z" fill="currentColor"/></svg> Néon</button>
+      <select class="palette" aria-label="Couleurs du mode néon">
+        <option value="violet">Violet</option>
+        <option value="vert">Vert</option>
+        <option value="orange">Orange</option>
+        <option value="bleu">Bleu</option>
+        <option value="rouge">Rouge</option>
+      </select>
+    </div>
+  </nav>
+
+  <main>
+
+    <section>
+      <div class="onglets" role="tablist" aria-label="Jeu et règles">
+        <button type="button" role="tab" aria-selected="true" aria-controls="panneau-jeu">Jeu</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="panneau-regles">Règles</button>
+      </div>
+
+      <div id="panneau-jeu" class="demineur" role="tabpanel">
+        <div class="dem-menu">
+          <button class="bouton dem-nouvelle" type="button">Nouvelle partie</button>
+          <button class="bouton dem-ouvrir-options" type="button">Options</button>
+          <button class="bouton dem-ouvrir-stats" type="button">Statistiques</button>
+          <button class="bouton dem-conseil" type="button">Conseil</button>
+          <button class="bouton dem-aide" type="button">Aide</button>
+        </div>
+
+        <dl class="dem-barre">
+          <div><dt>Temps :</dt><dd data-info="temps">00:00</dd></div>
+          <div><dt>Mines restantes :</dt><dd data-info="mines">0</dd></div>
+          <div><dt>Cases restantes :</dt><dd data-info="cases">0</dd></div>
+          <div class="dem-compteurs"></div>
+        </dl>
+
+        <p class="dem-statut" role="status"></p>
+        <p class="dem-legende" hidden>Chiffre : mines de la croix. Couleur et points : mines des diagonales. <b>0</b> <b>1</b> <b>2</b> <b>3</b> <b>4</b></p>
+        <noscript><p>Ce jeu a besoin de JavaScript.</p></noscript>
+
+        <div class="dem-cadre">
+          <div class="dem-zone">
+            <div class="dem-plateau"></div>
+          </div>
+        </div>
+
+        <dialog id="dem-options" class="dem-dialogue" aria-labelledby="dem-titre-options">
+          <h3 id="dem-titre-options">Options</h3>
+          <h4>Difficulté</h4>
+          <div class="dem-reglages">
+            <label>Niveau<select id="dem-taille"></select></label>
+            <div class="dem-perso" hidden>
+              <label>Largeur<input type="number" id="dem-largeur" min="5" max="100"></label>
+              <label>Hauteur<input type="number" id="dem-hauteur" min="5" max="100"></label>
+              <label>Mines<input type="number" id="dem-nb" min="1"></label>
+            </div>
+          </div>
+          <h4>Règles du jeu</h4>
+          <div class="dem-reglages">
+            <label>Forme<select id="dem-forme"></select></label>
+            <label>Surface<select id="dem-surface"></select></label>
+            <label>Ce que compte un chiffre<select id="dem-voisinage"></select></label>
+            <label>Types de mines<select id="dem-mines"></select></label>
+            <label class="dem-coche"><input type="checkbox" id="dem-couleurs"> Mode couleurs</label>
+          </div>
+          <h4>Création de la grille</h4>
+          <p class="dem-note">Premier coup sûr et pure logique, toujours.</p>
+          <h4>Autres options</h4>
+          <div class="dem-reglages">
+            <label class="dem-coche"><input type="checkbox" id="dem-questions"> Autoriser les points d'interrogation</label>
+            <label class="dem-coche"><input type="checkbox" id="dem-inverser"> Inverser les boutons</label>
+            <label>Zoom (%)<input type="number" id="dem-zoom" min="50" max="200" step="10"></label>
+          </div>
+          <div class="dem-dialogue-pied">
+            <button class="bouton bouton-plein dem-options-ok" type="button">OK</button>
+            <button class="bouton dem-options-annuler" type="button">Annuler</button>
+          </div>
+        </dialog>
+
+        <dialog id="dem-stats" class="dem-dialogue" aria-labelledby="dem-titre-stats">
+          <h3 id="dem-titre-stats">Statistiques</h3>
+          <p class="dem-note">Pour les règles en cours. Les parties avec conseil ne comptent pas.</p>
+          <div class="dem-stats-table">
+            <table>
+              <thead><tr><th scope="col">Niveau</th><th scope="col">Gagnées</th><th scope="col">Perdues</th><th scope="col">Abandonnées</th><th scope="col">Meilleur temps</th><th scope="col">Date</th></tr></thead>
+              <tbody class="dem-stats-corps"></tbody>
+            </table>
+          </div>
+          <div class="dem-dialogue-pied">
+            <button class="bouton dem-stats-effacer" type="button">Réinitialiser</button>
+            <button class="bouton bouton-plein dem-stats-fermer" type="button">Fermer</button>
+          </div>
+        </dialog>
+      </div>
+
+      <div id="panneau-regles" class="regles" role="tabpanel" hidden>
+        <h3>But</h3>
+        <p>Ouvrir toutes les cases sans mine. Un chiffre indique le total des mines autour de sa case.</p>
+        <h3>Sans chance</h3>
+        <ul>
+          <li>Ton premier coup est toujours sûr : la grille n'est créée qu'après lui, et il ouvre une zone.</li>
+          <li>Une grille n'est proposée que si un solveur l'a terminée entièrement par déduction, en ne voyant que ce que tu vois : les chiffres et le nombre total de mines. Il n'y a donc jamais besoin de deviner.</li>
+          <li>Certaines déductions sont difficiles, surtout dans les variantes denses. Si aucune grille n'est trouvée à temps, le jeu le dit au lieu d'en proposer une douteuse : réduis alors le nombre de mines.</li>
+        </ul>
+        <h3>Commandes</h3>
+        <ul>
+          <li><strong>Souris :</strong> clic gauche pour ouvrir, clic droit pour un drapeau ou un point d'interrogation. Un clic sur un chiffre, ou les deux boutons à la fois, ouvre ses voisines s'il a assez de drapeaux autour.</li>
+          <li><strong>Écran tactile :</strong> touche pour ouvrir, pression longue pour marquer, touche un chiffre pour ouvrir ses voisines.</li>
+          <li><strong>Clavier et souris :</strong> sur la case survolée, Entrée ouvre et Espace marque, ou ouvre les voisines d'un chiffre.</li>
+          <li><strong>Raccourcis :</strong> F2 pour une nouvelle partie, Échap pour fermer une fenêtre, + et − pour zoomer, H pour un conseil.</li>
+          <li><strong>Clavier seul :</strong> flèches pour se déplacer, Entrée pour ouvrir, F ou Espace pour marquer.</li>
+          <li>S'il y a plusieurs types de mines, marquer de nouveau change le type du drapeau.</li>
+          <li>« Inverser les boutons », dans les options, échange les deux actions, à la souris comme au doigt.</li>
+          <li>Le conseil montre une case sûre en n'utilisant que ce que tu vois. Une partie avec conseil ne compte pas dans les statistiques.</li>
+          <li>Ta partie est sauvegardée : tu la retrouves en revenant sur la page.</li>
+        </ul>
+        <h3>Surfaces</h3>
+        <ul>
+          <li><strong>Cylindre :</strong> les bords gauche et droit se touchent.</li>
+          <li><strong>Tore :</strong> en plus, le haut et le bas se touchent.</li>
+          <li><strong>Ruban de Möbius :</strong> la gauche rejoint la droite à l'envers.</li>
+          <li><strong>Bouteille de Klein :</strong> Möbius, et le haut touche le bas.</li>
+        </ul>
+        <p>Les numéros sur les bords indiquent les raccords : deux numéros égaux désignent la même rangée ou la même colonne.</p>
+        <h3>Ce que compte un chiffre</h3>
+        <ul>
+          <li><strong>Voisines comptées double :</strong> les cases qui touchent par un côté valent 2, les autres 1.</li>
+          <li><strong>Saut du cavalier :</strong> les 8 cases à un saut de cavalier des échecs.</li>
+          <li><strong>Croix :</strong> les 4 cases qui touchent par un côté.</li>
+          <li><strong>Étoile :</strong> les 8 voisines, plus les 4 cases à deux pas en ligne droite.</li>
+          <li><strong>Anneau lointain :</strong> uniquement le carré de cases à deux pas (ou, en hexagones, la deuxième couronne).</li>
+          <li><strong>Regard vers le haut :</strong> les 6 cases des deux rangées au-dessus, en tore uniquement.</li>
+          <li><strong>Deux couronnes :</strong> en hexagones, les 18 cases les plus proches.</li>
+        </ul>
+        <h3>Mines</h3>
+        <p>Une mine double compte pour 2 et une triple pour 3. Une anti-mine compte pour −1 : un 0 peut donc cacher des mines qui s'annulent, et seule une vraie zone sans mine s'ouvre seule.</p>
+        <h3>Mode couleurs</h3>
+        <p>Chaque case donne deux informations : le chiffre compte les mines de la croix, et la couleur compte celles des diagonales. En hexagones, chacun compte une direction sur deux. Les points sous le chiffre répètent la couleur. Ce mode utilise des mines simples et le voisinage normal.</p>
+        <h3>D'où vient l'idée</h3>
+        <p>Ces variantes s'inspirent du <a href="https://heptaveegesimal.com/2018/advent-calendar/">calendrier de l'Avent Minesveeper</a> de Heptaveegesimal. Les tailles reprennent celles de <a href="https://www.xn--dmineur-bya.eu/">démineur.eu</a>.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Ewen DUFOUR</p>
+  </footer>
+
+</body>
+</html>

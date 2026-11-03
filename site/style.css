@@ -1373,3 +1373,337 @@ button.bouton:disabled:hover { border-color: var(--bordure); }
 }
 
 .pendu-lettre.manquee { color: var(--ailleurs); }
+
+/* --- Démineur ------------------------------------------------------------ */
+
+.demineur {
+  /* Teintes des chiffres, par valeur ; le thème clair a besoin de teintes sombres. */
+  --v0: var(--discret);
+  --v1: #2b47b0;
+  --v2: #1f7a3d;
+  --v3: #c0392b;
+  --v4: #7b3fa8;
+  --v5: #b5651d;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.demineur[hidden] { display: none; }
+
+@media (prefers-color-scheme: dark) {
+  .demineur {
+    --v1: #8ea5ff;
+    --v2: #6fd08f;
+    --v3: #ff8f80;
+    --v4: #d3a5ff;
+    --v5: #f0b070;
+  }
+}
+
+/* En néon, le fond est toujours sombre. */
+[data-theme="neon"] .demineur {
+  --v1: #6ec6ff;
+  --v2: #6fe6a0;
+  --v3: #ff8f80;
+  --v4: #d9a5ff;
+  --v5: #ffc46b;
+}
+
+.dem-reglages {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+  gap: 0.5rem 0.75rem;
+}
+
+.dem-reglages label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--discret);
+}
+
+.dem-reglages select,
+.dem-reglages input[type="number"] {
+  width: 100%;
+  padding: 0.3rem 0.4rem;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 400;
+  color: var(--texte);
+  background: var(--surface);
+  border: 1px solid var(--bordure);
+  border-radius: 0.4rem;
+}
+
+.dem-reglages select:disabled { opacity: 0.55; }
+
+[data-theme="neon"] .dem-reglages select option { background: var(--surface); color: var(--texte); }
+
+.dem-reglages label.dem-coche {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.4rem;
+  align-self: end;
+  padding-bottom: 0.35rem;
+}
+
+.dem-perso { display: flex; gap: 0.5rem; grid-column: 1 / -1; }
+.dem-perso[hidden] { display: none; }
+.dem-perso label { flex: 1 1 0; }
+
+.dem-menu { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+.dem-barre {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 1.25rem;
+  margin: 0;
+  font-size: 0.92rem;
+}
+
+.dem-barre > div { display: flex; gap: 0.35rem; }
+.dem-barre dt { color: var(--discret); }
+.dem-barre dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.dem-compteurs { flex-wrap: wrap; gap: 0.75rem; font-weight: 600; }
+
+.dem-dialogue {
+  width: min(34rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  padding: 1.25rem;
+  color: var(--texte);
+  background: var(--surface);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+}
+
+.dem-dialogue::backdrop { background: rgba(0, 0, 0, 0.5); }
+
+[data-theme="neon"] .dem-dialogue {
+  border-color: var(--majeur);
+  box-shadow: 0 0 24px rgba(var(--majeur-rgb), 0.35);
+}
+
+.dem-dialogue h3 {
+  margin: 0 0 0.6rem;
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.dem-dialogue h4 { margin: 1rem 0 0.4rem; font-size: 0.92rem; font-weight: 600; }
+
+.dem-note { margin: 0; font-size: 0.88rem; color: var(--discret); }
+
+.dem-dialogue-pied {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.1rem;
+}
+
+.dem-stats-table { overflow-x: auto; margin-top: 0.6rem; }
+.dem-stats-table table { font-size: 0.85rem; }
+.dem-stats-table th, .dem-stats-table td { padding: 0.35rem 0.5rem; }
+.dem-stats-table th { border-bottom: 1px solid var(--bordure); }
+
+.dem-statut {
+  min-height: 1.65em;
+  margin: 0;
+  font-weight: 500;
+  text-align: center;
+}
+
+.dem-legende {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem 0.6rem;
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--discret);
+}
+
+.dem-legende[hidden] { display: none; }
+.dem-legende b { font-weight: 700; }
+.dem-legende b:nth-of-type(1) { color: var(--v0); }
+.dem-legende b:nth-of-type(2) { color: var(--v1); }
+.dem-legende b:nth-of-type(3) { color: var(--v2); }
+.dem-legende b:nth-of-type(4) { color: var(--v3); }
+.dem-legende b:nth-of-type(5) { color: var(--v4); }
+
+.dem-zone {
+  max-height: 85vh;
+  overflow: auto;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+}
+
+.dem-plateau {
+  position: relative;
+  margin: 0 auto;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.dem-repere {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--discret);
+}
+
+.dem-repere-g, .dem-repere-d { width: 22px; }
+.dem-repere-h, .dem-repere-b { height: 22px; }
+
+.dem-case {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--t);
+  height: var(--th);
+  padding: 0;
+  font-family: var(--sans);
+  font-size: calc(var(--t) * 0.52);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--texte);
+  background: color-mix(in srgb, var(--accent) 24%, var(--surface));
+  border: 1px solid var(--bordure);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.dem-case[data-etat="fermee"]:hover { background: color-mix(in srgb, var(--accent) 40%, var(--surface)); }
+.dem-case:focus-visible { z-index: 2; outline-offset: 0; }
+
+/* Hexagones : la bordure ne suit pas la découpe, un léger rétrécissement fait le joint. */
+[data-forme="hexa"] .dem-case {
+  width: calc(var(--t) - 1px);
+  height: calc(var(--th) - 1px);
+  border: 0;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
+
+.dem-case[data-etat="ouverte"] {
+  background: var(--surface);
+  cursor: default;
+}
+
+.dem-case[data-teinte="0"] { color: var(--v0); }
+.dem-case[data-teinte="1"] { color: var(--v1); }
+.dem-case[data-teinte="2"] { color: var(--v2); }
+.dem-case[data-teinte="3"] { color: var(--v3); }
+.dem-case[data-teinte="4"] { color: var(--v4); }
+.dem-case[data-teinte="5"] { color: var(--v5); }
+
+.dem-case[data-etat="drapeau"] { color: var(--chaud); font-size: calc(var(--t) * 0.46); }
+.dem-case[data-etat="question"] { color: var(--discret); }
+
+.dem-case.conseil { box-shadow: inset 0 0 0 3px var(--accent); }
+.dem-case[data-etat="faux"] { color: var(--discret); text-decoration: line-through; font-size: calc(var(--t) * 0.46); }
+
+.dem-case[data-etat="mine"] {
+  color: var(--texte);
+  background: var(--surface);
+  font-size: calc(var(--t) * 0.34);
+  cursor: default;
+}
+
+.dem-case[data-etat="explosee"] {
+  color: var(--surface);
+  background: var(--chaud);
+  font-size: calc(var(--t) * 0.34);
+  cursor: default;
+}
+
+.dem-points {
+  position: absolute;
+  bottom: 4%;
+  left: 0;
+  right: 0;
+  font-size: 0.5em;
+  letter-spacing: -0.05em;
+  text-align: center;
+}
+
+[data-theme="neon"] .dem-case[data-etat="fermee"]:hover {
+  box-shadow: inset 0 0 8px rgba(var(--majeur-rgb), 0.55);
+}
+
+[data-theme="neon"] .dem-case[data-etat="drapeau"] { text-shadow: 0 0 6px currentColor; }
+[data-theme="neon"] .dem-case[data-etat="explosee"] { box-shadow: 0 0 12px rgba(var(--mineur-rgb), 0.7); }
+
+
+/* Animation de défaite : par-dessus le terrain, sans gêner les clics. */
+.dem-cadre { position: relative; }
+
+.dem-scene {
+  position: fixed;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.dem-perso-pixel {
+  position: absolute;
+  bottom: 4px;
+  left: -70px;
+  width: 64px;
+  height: auto;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.35));
+}
+
+.dem-bulle {
+  position: absolute;
+  bottom: 58px;
+  padding: 0.3rem 0.7rem;
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: #2a1a14;
+  background: #fff3c4;
+  border: 2px solid #2a1a14;
+  border-radius: 2px;
+  box-shadow: 3px 3px 0 #2a1a14;
+}
+
+.dem-bulle[hidden] { display: none; }
+
+/* La pointe de la bulle, vers la magicienne. */
+.dem-bulle::after {
+  content: "";
+  position: absolute;
+  left: -10px;
+  bottom: 4px;
+  width: 8px;
+  height: 8px;
+  background: #fff3c4;
+  border: 2px solid #2a1a14;
+  border-top: 0;
+  border-right: 0;
+}
+
+.dem-boule {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff3c4 0 22%, #ffd166 22% 44%, #ff8c42 44% 68%, #ff5a3c 68% 100%);
+  transform: translate(-50%, -50%);
+}
+
+.dem-eclat {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+}
