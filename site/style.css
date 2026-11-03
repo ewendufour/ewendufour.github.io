@@ -933,6 +933,18 @@ button.bouton {
 button.bouton:disabled { color: var(--discret); opacity: 0.55; cursor: default; }
 button.bouton:disabled:hover { border-color: var(--bordure); }
 
+/* Un bouton plein garde un texte lisible, et l'attribut hidden reste respecté. */
+button.bouton-plein { color: var(--surface); }
+
+button.bouton-plein:disabled {
+  color: var(--discret);
+  background: none;
+  border-color: var(--bordure);
+  box-shadow: none;
+}
+
+.bouton[hidden] { display: none; }
+
 .cartes-statut {
   min-height: 1.65em;
   margin: 0 0 0.4rem;
@@ -1665,9 +1677,6 @@ button.bouton:disabled:hover { border-color: var(--bordure); }
   pointer-events: auto;
   transform: translate(-50%, -50%);
 }
-
-button.dem-rejouer,
-button.dem-rejouer:hover { color: var(--surface); }
 
 .dem-boule {
   position: absolute;
