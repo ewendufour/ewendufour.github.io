@@ -1,0 +1,65 @@
+/* Style minimal, à « pimper » plus tard. */
+
+:root {
+  --texte: #1f2328;
+  --fond: #ffffff;
+  --accent: #2459a8;
+  --discret: #59636e;
+  --bordure: #d0d7de;
+}
+
+body {
+  max-width: 50rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  color: var(--texte);
+  background: var(--fond);
+}
+
+a { color: var(--accent); }
+
+.profil {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+}
+
+.photo {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.identite h1 { margin: 0; }
+.identite p { margin: 0.25rem 0; }
+.statut, .affiliation { color: var(--discret); }
+
+nav {
+  display: flex;
+  gap: 1.5rem;
+  margin: 2rem 0;
+  padding: 0.75rem 0;
+  border-block: 1px solid var(--bordure);
+}
+
+section { margin-bottom: 2.5rem; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid var(--bordure);
+}
+
+footer {
+  color: var(--discret);
+  font-size: 0.9rem;
+}
