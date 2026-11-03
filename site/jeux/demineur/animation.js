@@ -143,17 +143,10 @@ window.AnimationDefaite = (function () {
     scene.className = "dem-scene";
     scene.setAttribute("aria-hidden", "true");
 
-    // La scène couvre la partie visible du terrain : une grande grille dépasse
-    // souvent de l'écran, et la magicienne doit rester à portée de vue.
+    // La scène couvre toute la boîte de jeu et défile avec elle : la magicienne
+    // se tient sur le bord bas de la boîte.
     var r = cadre.getBoundingClientRect();
-    var gauche = Math.max(r.left, 0), droite = Math.min(r.right, window.innerWidth);
-    var dessus = Math.max(r.top, 0), dessous = Math.min(r.bottom, window.innerHeight);
-    if (dessous - dessus < 160) { dessus = 0; dessous = window.innerHeight; }
-    var largeur = droite - gauche, hauteur = dessous - dessus;
-    scene.style.left = gauche + "px";
-    scene.style.top = dessus + "px";
-    scene.style.width = largeur + "px";
-    scene.style.height = hauteur + "px";
+    var gauche = r.left, dessus = r.top, largeur = r.width, hauteur = r.height;
     cadre.appendChild(scene);
 
     var centre = { x: largeur / 2, y: hauteur / 2 };

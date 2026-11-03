@@ -1614,7 +1614,8 @@ button.bouton-plein:disabled {
 .dem-cadre { position: relative; }
 
 .dem-scene {
-  position: fixed;
+  position: absolute;
+  inset: 0;
   overflow: hidden;
   pointer-events: none;
   z-index: 3;
