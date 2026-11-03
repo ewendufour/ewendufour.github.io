@@ -126,8 +126,8 @@ window.AnimationDefaite = (function () {
       e.style.top = centre.y + "px";
       e.style.background = couleurs[i % couleurs.length];
       scene.appendChild(e);
-      var angle = Math.random() * Math.PI * 2;
-      var portee = 50 + Math.random() * Math.min(largeur, hauteur) * 0.6;
+      var angle = -Math.random() * Math.PI;   // vers le haut uniquement
+      var portee = 50 + Math.random() * Math.max(largeur * 0.5, hauteur * 0.8);
       var a = e.animate([
         { transform: "translate(0, 0) scale(1)", opacity: 1 },
         { transform: "translate(" + Math.cos(angle) * portee + "px," + Math.sin(angle) * portee + "px) scale(0.4)", opacity: 0 }
@@ -149,7 +149,8 @@ window.AnimationDefaite = (function () {
     var gauche = r.left, dessus = r.top, largeur = r.width, hauteur = r.height;
     cadre.appendChild(scene);
 
-    var centre = { x: largeur / 2, y: hauteur / 2 };
+    // L'explosion part du sol de la boîte, au milieu, et monte en dôme.
+    var centre = { x: largeur / 2, y: hauteur };
     var montrerBouton = function () {
       // Dans le cadre et non dans la scène : centré sur la boîte de jeu entière.
       bouton = document.createElement("button");
@@ -225,7 +226,8 @@ window.AnimationDefaite = (function () {
       boule.style.left = centre.x + "px";
       boule.style.top = centre.y + "px";
       scene.appendChild(boule);
-      var taille = Math.max(largeur, hauteur) * 1.1;
+      // Le dôme finit par recouvrir toute la boîte, coins du haut compris.
+      var taille = 2 * Math.sqrt(largeur * largeur / 4 + hauteur * hauteur);
       var b = boule.animate([
         { width: "10px", height: "10px", opacity: 1 },
         { width: taille * 0.8 + "px", height: taille * 0.8 + "px", opacity: 1, offset: 0.45 },
