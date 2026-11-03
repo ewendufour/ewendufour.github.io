@@ -4,8 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ewen DUFOUR</title>
-  <meta name="description" content="Ewen DUFOUR, doctorant en informatique au laboratoire ICube (équipe IGG), Université de Strasbourg. Théorie cubique des types.">
+  <meta name="description" content="Ewen DUFOUR, doctorant en informatique au laboratoire ICube (équipe IGG), Université de Strasbourg. Calcul en théorie homotopique et cubique des types.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="alternate" hreflang="fr" href="https://ewendufour.fr/">
+  <link rel="alternate" hreflang="en" href="https://ewendufour.fr/en/">
+  <!-- Applique le mode néon avant l'affichage, pour éviter un flash. -->
+  <script>(function(){var r=document.documentElement,t=null;try{t=new URLSearchParams(location.search).get("theme")}catch(e){}try{if(t==="neon")localStorage.setItem("theme","neon");else if(t==="normal")localStorage.removeItem("theme");else t=localStorage.getItem("theme")}catch(e){}if(t==="neon")r.dataset.theme="neon"})()</script>
   <link rel="stylesheet" href="style.css">
+  <script src="theme.js" defer></script>
 </head>
 <body>
 
@@ -19,9 +25,9 @@
         <a href="https://igg.icube.unistra.fr/">IGG</a>,
         Université de Strasbourg
       </p>
-      <p class="mail">
-        <a href="mailto:ewen.dufour@unistra.fr">ewen.dufour@unistra.fr</a>
-        · <a href="cv.pdf">CV (PDF)</a>
+      <p class="actions">
+        <a class="bouton" href="mailto:ewen.dufour@unistra.fr">ewen.dufour@unistra.fr</a>
+        <a class="bouton bouton-plein" href="cv.pdf">CV (PDF)</a>
       </p>
     </div>
   </header>
@@ -30,7 +36,13 @@
     <a href="#biographie">Biographie</a>
     <a href="#stages">Stages</a>
     <a href="#enseignement">Enseignement</a>
-    <a href="#liens">Contact &amp; liens</a>
+    <a href="#liens">Contact</a>
+    <div class="reglages">
+      <a class="langue" href="en/index.html" hreflang="en" data-pos="gauche" aria-label="English version">
+        <span>FR</span><span lang="en">EN</span>
+      </a>
+      <button class="neon-btn" type="button" aria-pressed="false"><svg class="icone" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0l1.8 6.2L16 8l-6.2 1.8L8 16l-1.8-6.2L0 8l6.2-1.8z" fill="currentColor"/></svg> Néon</button>
+    </div>
   </nav>
 
   <main>
@@ -39,43 +51,45 @@
       <h2>Biographie</h2>
       <p>
         Je travaille sur les manières de <strong>calculer efficacement</strong>
-        en <strong>théorie homotopique des types</strong>, et par extension en
+        en <strong>théorie homotopique des types</strong> et en
         <strong>théorie cubique des types</strong>.
       </p>
       <p>
         Ma thèse,
         <a href="https://theses.fr/s440602">« Calculer en théorie homotopique des types »</a>,
-        est dirigée par Viktoria Heu et Nicolas Magaud.
+        est codirigée par Viktoria Heu et Nicolas Magaud, et coencadrée par
+        Loïc Pujet et Pierre Boutry.
       </p>
       <!-- Plus tard : section « Publications » -->
     </section>
 
     <section id="stages">
       <h2>Stages de recherche</h2>
-      <ul class="stages">
+      <ol class="stages">
         <li>
           <span class="annee">2026</span>
           <strong>Canonical pour (Cubical) Agda</strong>, ICube,
           avec Pierre Boutry, Chase Norman et Loïc Pujet.
-          <a href="https://github.com/ewendufour/rapport_de_stage_2025_2026/blob/main/report/report.pdf">Rapport</a>
+          <a class="lien-rapport" href="https://github.com/ewendufour/rapport_de_stage_2025_2026/blob/main/report/report.pdf">Rapport</a>
         </li>
         <li>
           <span class="annee">2025</span>
           <strong>Mesure de complexité spatiale en lambda-calcul</strong>,
           LMF, avec Thibaut Balabonski.
-          <a href="https://github.com/ewendufour/rapport_stage_2024_2025/blob/master/rapport/rapport.pdf">Rapport</a>
+          <a class="lien-rapport" href="https://github.com/ewendufour/rapport_stage_2024_2025/blob/master/rapport/rapport.pdf">Rapport</a>
         </li>
         <li>
           <span class="annee">2024</span>
           <strong>Vérification déductive de programmes assembleur avec Why3</strong>,
           LMF, avec Jean-Christophe Filliâtre et Paul Patault.
-          <a href="https://github.com/ewendufour/rapport_stage_2023_2024/blob/main/rapport/rapport.pdf">Rapport</a>
+          <a class="lien-rapport" href="https://github.com/ewendufour/rapport_stage_2023_2024/blob/main/rapport/rapport.pdf">Rapport</a>
         </li>
-      </ul>
+      </ol>
     </section>
 
     <section id="enseignement">
       <h2>Enseignement</h2>
+      <div class="tableau">
       <table>
         <thead>
           <tr>
@@ -87,23 +101,30 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Une ligne <tr> par cours -->
+          <!-- Une ligne <tr> par cours ; garder les data-label (affichage mobile) -->
           <tr>
-            <td>Architecture des ordinateurs</td>
-            <td>L2</td>
-            <td>TD-TP</td>
-            <td>24&nbsp;h</td>
-            <td>2026–2027</td>
+            <td data-label="Cours">Architecture des ordinateurs</td>
+            <td data-label="Niveau">L2</td>
+            <td data-label="Type">TD-TP</td>
+            <td data-label="Heures">24&nbsp;h</td>
+            <td data-label="Année">2026–2027</td>
           </tr>
         </tbody>
       </table>
+      </div>
     </section>
 
     <section id="liens">
       <h2>Contact &amp; liens</h2>
+      <dl class="coordonnees">
+        <dt>Courriel</dt>
+        <dd><a href="mailto:ewen.dufour@unistra.fr">ewen.dufour@unistra.fr</a></dd>
+        <dt>Adresse</dt>
+        <dd>ICube, 300 bd Sébastien Brant, 67412 Illkirch</dd>
+        <dt>Bureau</dt>
+        <dd>B114</dd>
+      </dl>
       <ul class="liens">
-        <li>Courriel : <a href="mailto:ewen.dufour@unistra.fr">ewen.dufour@unistra.fr</a></li>
-        <li>Adresse : ICube, 300 bd Sébastien Brant, 67412 Illkirch</li>
         <li><a href="cv.pdf">CV (PDF)</a></li>
         <li><a href="https://github.com/ewendufour">GitHub</a></li>
         <li><a href="https://codeberg.org/ewendufour">Codeberg</a></li>

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ewen DUFOUR</title>
+  <meta name="description" content="Ewen DUFOUR, PhD student in computer science at the ICube laboratory (IGG team), University of Strasbourg. Computation in homotopy and cubical type theory.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="alternate" hreflang="fr" href="https://ewendufour.fr/">
+  <link rel="alternate" hreflang="en" href="https://ewendufour.fr/en/">
+  <!-- Applies neon mode before first paint to avoid a flash. -->
+  <script>(function(){var r=document.documentElement,t=null;try{t=new URLSearchParams(location.search).get("theme")}catch(e){}try{if(t==="neon")localStorage.setItem("theme","neon");else if(t==="normal")localStorage.removeItem("theme");else t=localStorage.getItem("theme")}catch(e){}if(t==="neon")r.dataset.theme="neon"})()</script>
+  <link rel="stylesheet" href="../style.css">
+  <script src="../theme.js" defer></script>
+</head>
+<body>
+
+  <header class="profil">
+    <img class="photo" src="../img/photo.jpg" alt="Photo of Ewen DUFOUR" width="480" height="600">
+    <div class="identite">
+      <h1>Ewen DUFOUR</h1>
+      <p class="statut">First-year PhD student in computer science</p>
+      <p class="affiliation">
+        <a href="https://icube.unistra.fr/">ICube</a> laboratory,
+        <a href="https://igg.icube.unistra.fr/">IGG</a> team,
+        University of Strasbourg
+      </p>
+      <p class="actions">
+        <a class="bouton" href="mailto:ewen.dufour@unistra.fr">ewen.dufour@unistra.fr</a>
+        <a class="bouton bouton-plein" href="../cv.pdf" hreflang="fr">CV (PDF, in French)</a>
+      </p>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#internships">Internships</a>
+    <a href="#teaching">Teaching</a>
+    <a href="#contact">Contact</a>
+    <div class="reglages">
+      <a class="langue" href="../index.html" hreflang="fr" data-pos="droite" aria-label="Version française">
+        <span lang="fr">FR</span><span>EN</span>
+      </a>
+      <button class="neon-btn" type="button" aria-pressed="false"><svg class="icone" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0l1.8 6.2L16 8l-6.2 1.8L8 16l-1.8-6.2L0 8l6.2-1.8z" fill="currentColor"/></svg> Neon</button>
+    </div>
+  </nav>
+
+  <main>
+
+    <section id="about">
+      <h2>About</h2>
+      <p>
+        I work on ways to <strong>compute efficiently</strong>
+        in <strong>homotopy type theory</strong> and in
+        <strong>cubical type theory</strong>.
+      </p>
+      <p>
+        My PhD thesis,
+        <a href="https://theses.fr/s440602" hreflang="fr"><span lang="fr">« Calculer en théorie homotopique des types »</span></a>
+        (<em>Computing in Homotopy Type Theory</em>),
+        is co-supervised by Viktoria Heu and Nicolas Magaud, and co-advised by
+        Loïc Pujet and Pierre Boutry.
+      </p>
+    </section>
+
+    <section id="internships">
+      <h2>Research internships</h2>
+      <ol class="stages">
+        <li>
+          <span class="annee">2026</span>
+          <strong>Canonical for (Cubical) Agda</strong>, ICube,
+          with Pierre Boutry, Chase Norman and Loïc Pujet.
+          <a class="lien-rapport" href="https://github.com/ewendufour/rapport_de_stage_2025_2026/blob/main/report/report.pdf" hreflang="fr">Report (in French)</a>
+        </li>
+        <li>
+          <span class="annee">2025</span>
+          <strong>Measuring space complexity in the lambda calculus</strong>,
+          LMF, with Thibaut Balabonski.
+          <a class="lien-rapport" href="https://github.com/ewendufour/rapport_stage_2024_2025/blob/master/rapport/rapport.pdf" hreflang="fr">Report (in French)</a>
+        </li>
+        <li>
+          <span class="annee">2024</span>
+          <strong>Deductive verification of assembly programs with Why3</strong>,
+          LMF, with Jean-Christophe Filliâtre and Paul Patault.
+          <a class="lien-rapport" href="https://github.com/ewendufour/rapport_stage_2023_2024/blob/main/rapport/rapport.pdf" hreflang="fr">Report (in French)</a>
+        </li>
+      </ol>
+    </section>
+
+    <section id="teaching">
+      <h2>Teaching</h2>
+      <div class="tableau">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Course</th>
+            <th scope="col">Level</th>
+            <th scope="col">Type</th>
+            <th scope="col">Hours</th>
+            <th scope="col">Year</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- One <tr> per course; keep the data-label attributes (mobile layout) -->
+          <tr>
+            <td data-label="Course">Computer architecture</td>
+            <td data-label="Level">2nd-year BSc (L2)</td>
+            <td data-label="Type">Tutorials &amp; labs</td>
+            <td data-label="Hours">24&nbsp;h</td>
+            <td data-label="Year">2026–2027</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact &amp; links</h2>
+      <dl class="coordonnees">
+        <dt>Email</dt>
+        <dd><a href="mailto:ewen.dufour@unistra.fr">ewen.dufour@unistra.fr</a></dd>
+        <dt>Address</dt>
+        <dd>ICube, 300 bd Sébastien Brant, 67412 Illkirch, France</dd>
+        <dt>Office</dt>
+        <dd>B114</dd>
+      </dl>
+      <ul class="liens">
+        <li><a href="../cv.pdf" hreflang="fr">CV (PDF, in French)</a></li>
+        <li><a href="https://github.com/ewendufour">GitHub</a></li>
+        <li><a href="https://codeberg.org/ewendufour">Codeberg</a></li>
+        <li><a href="https://www.linkedin.com/in/ewen-dufour-07181b1b1">LinkedIn</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Ewen DUFOUR</p>
+  </footer>
+
+</body>
+</html>
