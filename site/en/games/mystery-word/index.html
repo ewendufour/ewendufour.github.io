@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="../../../style.css?v=dev">
   <script src="../../../theme.js?v=dev" defer></script>
   <script src="../../../jeux/mots.js?v=dev" defer></script>
+  <script src="../../../jeux/mot-mystere/dico-en.js?v=dev" defer></script>
   <script src="../../../jeux/mot-mystere/mot-mystere.js?v=dev" defer></script>
 </head>
 <body>
@@ -75,7 +76,8 @@
           <li><strong>Dashed border:</strong> the letter is not in the word, or not any further times.</li>
         </ul>
         <p>A repeated letter is only flagged as many times as it appears in the word.</p>
-        <p>Any guess of the right length is accepted, even if it is not a real word.</p>
+        <p>A guess that is not in the dictionary is refused and does not count. The dictionary includes plurals and verb forms, but it can miss a rare word.</p>
+        <p>The word to find is always a common one. Dictionary: <a href="https://github.com/words/an-array-of-english-words">an-array-of-english-words</a> (MIT licence).</p>
         <h3>Controls</h3>
         <p>Use the on-screen keyboard or your own: Enter submits and Backspace deletes.</p>
       </div>

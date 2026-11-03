@@ -1,13 +1,14 @@
 // Mot mystère : deviner un mot de 5, 6 ou 7 lettres, avec un essai de plus que
 // de lettres. Chaque essai indique les lettres bien placées, mal placées ou
-// absentes. Il n'y a pas de dictionnaire complet : tout essai de la bonne
-// longueur est accepté. La partie et les scores sont mémorisés par langue.
+// absentes. Un essai absent du dictionnaire (dico-fr.js, dico-en.js) est refusé
+// sans coûter d'essai. La partie et les scores sont mémorisés par langue.
 // Les couleurs viennent des variables du thème, voir style.css.
 (function () {
   var TEXTES = {
     fr: {
       essais: function (n) { return n > 1 ? "Encore " + n + " essais." : "Dernier essai !"; },
       court: function (n) { return "Il faut " + n + " lettres."; },
+      inconnu: "Ce mot n'est pas dans le dictionnaire.",
       gagne: function (n) { return n > 1 ? "Bravo, trouvé en " + n + " essais !" : "Bravo, trouvé du premier coup !"; },
       perdu: function (m) { return "Perdu, le mot était " + m + "."; },
       effacer: "Effacer", valider: "Valider",
@@ -16,6 +17,7 @@
     en: {
       essais: function (n) { return n > 1 ? n + " guesses left." : "Last guess!"; },
       court: function (n) { return "You need " + n + " letters."; },
+      inconnu: "That word is not in the dictionary.",
       gagne: function (n) { return n > 1 ? "Well done, found in " + n + " guesses!" : "Well done, first try!"; },
       perdu: function (m) { return "You lost, the word was " + m + "."; },
       effacer: "Delete", valider: "Enter",
@@ -41,6 +43,23 @@
       }
     }
     return resultat;
+  };
+
+  // Recherche par dichotomie dans les mots collés et triés du dictionnaire.
+  // Si le dictionnaire n'a pas pu être chargé, on ne bloque pas la partie.
+  var existe = function (essai) {
+    var dico = window.DICTIONNAIRE;
+    if (!dico) return true;
+    var n = essai.length, bloc = dico[n];
+    var bas = 0, haut = bloc.length / n - 1;
+    while (bas <= haut) {
+      var milieu = (bas + haut) >> 1;
+      var m = bloc.substr(milieu * n, n);
+      if (m === essai) return true;
+      if (m < essai) bas = milieu + 1;
+      else haut = milieu - 1;
+    }
+    return false;
   };
 
   // --- Interface --------------------------------------------------------------
@@ -124,6 +143,11 @@
     if (finie) return;
     if (saisie.length < longueur) {
       message = textes.court(longueur);
+      dessiner();
+      return;
+    }
+    if (saisie !== mot && !existe(saisie)) {
+      message = textes.inconnu;
       dessiner();
       return;
     }
