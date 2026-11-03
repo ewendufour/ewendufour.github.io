@@ -92,3 +92,17 @@ footer {
   color: var(--discret);
   font-size: 0.9rem;
 }
+
+.stages {
+  list-style: none;
+  padding: 0;
+}
+
+.stages li { margin-bottom: 0.75rem; }
+
+.annee {
+  display: inline-block;
+  min-width: 3.5rem;
+  font-weight: 600;
+  color: var(--accent);
+}
