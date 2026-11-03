@@ -1134,7 +1134,7 @@ button.bouton:disabled:hover { border-color: var(--bordure); }
 
 .mer-case[data-etat="navire"] { background: var(--navire); border-color: var(--accent); }
 
-/* Raté : un point ; touché et coulé : une croix. */
+/* Raté : un point ; touché : une croix ; coulé : case pleine, barrée d'un trait. */
 .mer-case[data-etat="eau"]::after {
   content: "";
   width: 22%;
@@ -1144,9 +1144,7 @@ button.bouton:disabled:hover { border-color: var(--bordure); }
 }
 
 .mer-case[data-etat="touche"]::before,
-.mer-case[data-etat="touche"]::after,
-.mer-case[data-etat="coule"]::before,
-.mer-case[data-etat="coule"]::after {
+.mer-case[data-etat="touche"]::after {
   content: "";
   position: absolute;
   width: 62%;
@@ -1156,8 +1154,7 @@ button.bouton:disabled:hover { border-color: var(--bordure); }
   transform: rotate(45deg);
 }
 
-.mer-case[data-etat="touche"]::after,
-.mer-case[data-etat="coule"]::after { transform: rotate(-45deg); }
+.mer-case[data-etat="touche"]::after { transform: rotate(-45deg); }
 
 .mer-case[data-etat="touche"] {
   background: color-mix(in srgb, var(--touche) 22%, var(--surface));
@@ -1166,8 +1163,35 @@ button.bouton:disabled:hover { border-color: var(--bordure); }
 
 .mer-case[data-etat="coule"] { background: var(--touche); border-color: var(--touche); }
 
-.mer-case[data-etat="coule"]::before,
-.mer-case[data-etat="coule"]::after { background: var(--surface); }
+/* Trait qui relie les cases d'un navire coulé, du centre de la première au
+   centre de la dernière : posé sur la grille, il suit sa taille. */
+.mer-trait {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.mer-trait::after {
+  content: "";
+  position: absolute;
+  border-radius: 2px;
+  background: var(--surface);
+  box-shadow: 0 0 0 1px var(--touche);
+}
+
+.mer-trait.horizontal::after {
+  top: calc(50% - 2px);
+  height: 4px;
+  left: calc(50% / var(--n));
+  right: calc(50% / var(--n));
+}
+
+.mer-trait.vertical::after {
+  left: calc(50% - 2px);
+  width: 4px;
+  top: calc(50% / var(--n));
+  bottom: calc(50% / var(--n));
+}
 
 .mer-case.dernier { outline: 2px solid var(--accent); outline-offset: 1px; z-index: 1; }
 

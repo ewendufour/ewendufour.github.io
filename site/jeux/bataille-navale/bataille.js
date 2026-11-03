@@ -210,21 +210,27 @@
   // --- Grilles ----------------------------------------------------------------
   var construireMer = function (mer, surCase) {
     var cases = [];
-    var entete = function (texte) {
+    // Tout est placé explicitement : les traits des navires coulés se posent
+    // par-dessus, sur les mêmes lignes et colonnes de la grille.
+    var entete = function (texte, ligne, colonne) {
       var el = document.createElement("span");
       el.className = "mer-entete";
       el.setAttribute("aria-hidden", "true");
       el.textContent = texte;
+      el.style.gridRow = ligne;
+      el.style.gridColumn = colonne;
       mer.appendChild(el);
     };
-    entete("");
-    for (var c = 0; c < TAILLE; c++) entete("ABCDEFGHIJ".charAt(c));
+    entete("", 1, 1);
+    for (var c = 0; c < TAILLE; c++) entete("ABCDEFGHIJ".charAt(c), 1, c + 2);
     for (var i = 0; i < TAILLE * TAILLE; i++) {
-      if (i % TAILLE === 0) entete(i / TAILLE + 1);
+      if (i % TAILLE === 0) entete(i / TAILLE + 1, i / TAILLE + 2, 1);
       (function (numero) {
         var b = document.createElement("button");
         b.type = "button";
         b.className = "mer-case";
+        b.style.gridRow = Math.floor(numero / TAILLE) + 2;
+        b.style.gridColumn = numero % TAILLE + 2;
         b.tabIndex = numero === 0 ? 0 : -1;
         b.addEventListener("click", function () { surCase(numero); });
         b.addEventListener("focus", function () {
@@ -263,6 +269,23 @@
     });
   };
 
+  // Un trait relie les cases de chaque navire coulé.
+  var tracerCoules = function (mer, flotte) {
+    mer.querySelectorAll(".mer-trait").forEach(function (t) { t.remove(); });
+    flotte.forEach(function (n) {
+      if (n.touches.length !== n.longueur) return;
+      var depart = Math.min.apply(null, n.cases);
+      var horizontal = n.cases.indexOf(depart + 1) >= 0;
+      var t = document.createElement("span");
+      t.className = "mer-trait " + (horizontal ? "horizontal" : "vertical");
+      t.setAttribute("aria-hidden", "true");
+      t.style.setProperty("--n", n.longueur);
+      t.style.gridRow = (Math.floor(depart / TAILLE) + 2) + " / span " + (horizontal ? 1 : n.longueur);
+      t.style.gridColumn = (depart % TAILLE + 2) + " / span " + (horizontal ? n.longueur : 1);
+      mer.appendChild(t);
+    });
+  };
+
   var listeFlotte = function (el, flotte) {
     el.innerHTML = "";
     flotte.forEach(function (n, i) {
@@ -281,6 +304,8 @@
 
     peindre(casesJoueur, flotteJoueur, tirsOrdi, true);
     peindre(casesOrdi, flotteOrdi, tirsJoueur, phase === "fin");
+    tracerCoules(merJoueur, flotteJoueur);
+    tracerCoules(merOrdi, flotteOrdi);
 
     casesJoueur.forEach(function (b, c) {
       b.classList.toggle("dernier", c === dernierTirOrdi);
