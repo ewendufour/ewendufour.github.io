@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solitaire · Ewen DUFOUR</title>
+  <meta name="description" content="Le jeu de patience classique, aussi appelé Klondike : range les quatre couleurs de l'As au Roi.">
+  <meta name="robots" content="noindex">
+  <meta name="color-scheme" content="light dark">
+  <!-- Applique le mode néon avant l'affichage, pour éviter un flash. -->
+  <script>(function(){var r=document.documentElement,q=null,t=null,p=null,ok=/^(violet|vert|orange|bleu|rouge)$/;try{q=new URLSearchParams(location.search);t=q.get("theme");p=q.get("palette")}catch(e){}if(!ok.test(p||""))p=null;try{if(t==="neon")localStorage.setItem("theme","neon");else if(t==="normal")localStorage.removeItem("theme");else t=localStorage.getItem("theme");if(p)localStorage.setItem("palette",p);else p=localStorage.getItem("palette")}catch(e){}if(t==="neon")r.dataset.theme="neon";if(ok.test(p||""))r.dataset.palette=p})()</script>
+  <link rel="stylesheet" href="../../style.css?v=dev">
+  <script src="../../theme.js?v=dev" defer></script>
+  <script src="../cartes.js?v=dev" defer></script>
+</head>
+<body>
+
+  <header class="entete-page">
+    <h1>Solitaire</h1>
+    <p>Le jeu de patience classique, aussi appelé Klondike : range les quatre couleurs de l'As au Roi.</p>
+  </header>
+
+  <nav>
+    <a href="../../index.html">Accueil</a>
+    <a href="../index.html">Jeux</a>
+    <div class="reglages">
+      <a class="langue" href="../../en/games/solitaire/index.html" hreflang="en" data-pos="gauche" aria-label="English version">
+        <span>FR</span><span lang="en">EN</span>
+      </a>
+      <button class="neon-btn" type="button" aria-pressed="false"><svg class="icone" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0l1.8 6.2L16 8l-6.2 1.8L8 16l-1.8-6.2L0 8l6.2-1.8z" fill="currentColor"/></svg> Néon</button>
+      <select class="palette" aria-label="Couleurs du mode néon">
+        <option value="violet">Violet</option>
+        <option value="vert">Vert</option>
+        <option value="orange">Orange</option>
+        <option value="bleu">Bleu</option>
+        <option value="rouge">Rouge</option>
+      </select>
+    </div>
+  </nav>
+
+  <main>
+
+    <section>
+      <div class="onglets" role="tablist" aria-label="Jeu et règles">
+        <button type="button" role="tab" aria-selected="true" aria-controls="panneau-jeu">Jeu</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="panneau-regles">Règles</button>
+      </div>
+
+      <div id="panneau-jeu" role="tabpanel">
+        <div class="cartes-commandes">
+          <fieldset class="niveaux">
+            <legend>Pioche</legend>
+            <label><input type="radio" name="option" value="1"><span>1 carte</span></label>
+            <label><input type="radio" name="option" value="3"><span>3 cartes</span></label>
+          </fieldset>
+          <div class="cartes-boutons">
+            <button class="bouton cartes-nouvelle" type="button">Nouvelle donne</button>
+            <button class="bouton cartes-annuler" type="button">Annuler</button>
+            <button class="bouton cartes-ranger" type="button">Ranger</button>
+          </div>
+        </div>
+        <p class="cartes-statut" role="status"></p>
+        <div class="plateau" data-jeu="solitaire"></div>
+        <noscript><p>Ce jeu a besoin de JavaScript.</p></noscript>
+        <dl class="score cartes-infos">
+          <div><dt>Coups</dt><dd data-info="coups">0</dd></div>
+          <div><dt>Pioche</dt><dd data-info="pioche">0</dd></div>
+          <div><dt>Victoires</dt><dd data-info="victoires">0</dd></div>
+        </dl>
+      </div>
+
+      <div id="panneau-regles" class="regles" role="tabpanel" hidden>
+        <h3>But</h3>
+        <p>Monter les quatre fondations, en haut à droite : une par couleur, de l'As au Roi.</p>
+        <h3>Déroulement</h3>
+        <ul>
+          <li>Dans les sept colonnes, on empile en ordre décroissant et en alternant rouge et noir.</li>
+          <li>Une suite déjà ordonnée se déplace d'un bloc.</li>
+          <li>Une carte retournée se découvre dès qu'elle arrive au sommet de sa colonne.</li>
+          <li>Seul un Roi, ou une suite qui commence par un Roi, peut aller sur une colonne vide.</li>
+          <li>Toucher la pioche retourne 1 ou 3 cartes sur la défausse, dont seule la dernière est jouable.</li>
+          <li>Une fois la pioche vide, la toucher y remet la défausse, sans limite de tours.</li>
+          <li>Une carte peut redescendre d'une fondation vers une colonne.</li>
+        </ul>
+        <p>Toutes les donnes ne peuvent pas être gagnées, surtout en pioche de 3 cartes.</p>
+        <h3>Commandes</h3>
+        <ul>
+          <li>Fais glisser une carte ou une suite, ou touche-la puis touche sa destination.</li>
+          <li>Un double clic envoie la carte au meilleur endroit possible.</li>
+          <li>« Ranger » envoie aux fondations toutes les cartes qui peuvent y aller.</li>
+          <li>« Annuler » revient en arrière d'un coup, autant de fois que tu veux.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Ewen DUFOUR</p>
+  </footer>
+
+</body>
+</html>

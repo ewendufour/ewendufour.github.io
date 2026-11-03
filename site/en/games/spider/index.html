@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spider · Ewen DUFOUR</title>
+  <meta name="description" content="Two decks, ten columns: build eight complete runs from King to Ace.">
+  <meta name="robots" content="noindex">
+  <meta name="color-scheme" content="light dark">
+  <!-- Applies neon mode before first paint to avoid a flash. -->
+  <script>(function(){var r=document.documentElement,q=null,t=null,p=null,ok=/^(violet|vert|orange|bleu|rouge)$/;try{q=new URLSearchParams(location.search);t=q.get("theme");p=q.get("palette")}catch(e){}if(!ok.test(p||""))p=null;try{if(t==="neon")localStorage.setItem("theme","neon");else if(t==="normal")localStorage.removeItem("theme");else t=localStorage.getItem("theme");if(p)localStorage.setItem("palette",p);else p=localStorage.getItem("palette")}catch(e){}if(t==="neon")r.dataset.theme="neon";if(ok.test(p||""))r.dataset.palette=p})()</script>
+  <link rel="stylesheet" href="../../../style.css?v=dev">
+  <script src="../../../theme.js?v=dev" defer></script>
+  <script src="../../../jeux/cartes.js?v=dev" defer></script>
+</head>
+<body>
+
+  <header class="entete-page">
+    <h1>Spider</h1>
+    <p>Two decks, ten columns: build eight complete runs from King to Ace.</p>
+  </header>
+
+  <nav>
+    <a href="../../index.html">Home</a>
+    <a href="../index.html">Games</a>
+    <div class="reglages">
+      <a class="langue" href="../../../jeux/spider/index.html" hreflang="fr" data-pos="droite" aria-label="Version française">
+        <span lang="fr">FR</span><span>EN</span>
+      </a>
+      <button class="neon-btn" type="button" aria-pressed="false"><svg class="icone" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0l1.8 6.2L16 8l-6.2 1.8L8 16l-1.8-6.2L0 8l6.2-1.8z" fill="currentColor"/></svg> Neon</button>
+      <select class="palette" aria-label="Neon colours">
+        <option value="violet">Purple</option>
+        <option value="vert">Green</option>
+        <option value="orange">Orange</option>
+        <option value="bleu">Blue</option>
+        <option value="rouge">Red</option>
+      </select>
+    </div>
+  </nav>
+
+  <main>
+
+    <section>
+      <div class="onglets" role="tablist" aria-label="Game and rules">
+        <button type="button" role="tab" aria-selected="true" aria-controls="panneau-jeu">Game</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="panneau-regles">Rules</button>
+      </div>
+
+      <div id="panneau-jeu" role="tabpanel">
+        <div class="cartes-commandes">
+          <fieldset class="niveaux">
+            <legend>Suits</legend>
+            <label><input type="radio" name="option" value="1"><span>1</span></label>
+            <label><input type="radio" name="option" value="2"><span>2</span></label>
+            <label><input type="radio" name="option" value="4"><span>4</span></label>
+          </fieldset>
+          <div class="cartes-boutons">
+            <button class="bouton cartes-nouvelle" type="button">New deal</button>
+            <button class="bouton cartes-annuler" type="button">Undo</button>
+          </div>
+        </div>
+        <p class="cartes-statut" role="status"></p>
+        <div class="plateau" data-jeu="spider"></div>
+        <noscript><p>This game needs JavaScript.</p></noscript>
+        <dl class="score cartes-infos">
+          <div><dt>Moves</dt><dd data-info="coups">0</dd></div>
+          <div><dt>Deals</dt><dd data-info="pioche">0</dd></div>
+          <div><dt>Wins</dt><dd data-info="victoires">0</dd></div>
+        </dl>
+      </div>
+
+      <div id="panneau-regles" class="regles" role="tabpanel" hidden>
+        <h3>Goal</h3>
+        <p>Build eight complete runs of one suit, from King to Ace. Each one leaves the game by itself.</p>
+        <h3>How to play</h3>
+        <ul>
+          <li>A card goes on a card one rank higher, whatever its suit.</li>
+          <li>Only a descending run of a single suit moves as a block.</li>
+          <li>Any card or run can go on an empty column.</li>
+          <li>A face-down card is revealed as soon as it reaches the top of its column.</li>
+          <li>Tapping the stock deals one card onto every column, provided none is empty.</li>
+        </ul>
+        <p>The number of suits sets the difficulty: 1 is the easiest, 4 the hardest. Not every deal can be won.</p>
+        <h3>Controls</h3>
+        <ul>
+          <li>Drag a card or a run, or tap it and then tap its destination.</li>
+          <li>A double click sends the card to the best available spot.</li>
+          <li>"Undo" takes back one move, as many times as you like.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Ewen DUFOUR</p>
+  </footer>
+
+</body>
+</html>

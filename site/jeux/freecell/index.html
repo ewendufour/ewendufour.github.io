@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FreeCell · Ewen DUFOUR</title>
+  <meta name="description" content="Toutes les cartes sont visibles dès le départ et quatre cellules t'aident à les déplacer.">
+  <meta name="robots" content="noindex">
+  <meta name="color-scheme" content="light dark">
+  <!-- Applique le mode néon avant l'affichage, pour éviter un flash. -->
+  <script>(function(){var r=document.documentElement,q=null,t=null,p=null,ok=/^(violet|vert|orange|bleu|rouge)$/;try{q=new URLSearchParams(location.search);t=q.get("theme");p=q.get("palette")}catch(e){}if(!ok.test(p||""))p=null;try{if(t==="neon")localStorage.setItem("theme","neon");else if(t==="normal")localStorage.removeItem("theme");else t=localStorage.getItem("theme");if(p)localStorage.setItem("palette",p);else p=localStorage.getItem("palette")}catch(e){}if(t==="neon")r.dataset.theme="neon";if(ok.test(p||""))r.dataset.palette=p})()</script>
+  <link rel="stylesheet" href="../../style.css?v=dev">
+  <script src="../../theme.js?v=dev" defer></script>
+  <script src="../cartes.js?v=dev" defer></script>
+</head>
+<body>
+
+  <header class="entete-page">
+    <h1>FreeCell</h1>
+    <p>Toutes les cartes sont visibles dès le départ et quatre cellules t'aident à les déplacer.</p>
+  </header>
+
+  <nav>
+    <a href="../../index.html">Accueil</a>
+    <a href="../index.html">Jeux</a>
+    <div class="reglages">
+      <a class="langue" href="../../en/games/freecell/index.html" hreflang="en" data-pos="gauche" aria-label="English version">
+        <span>FR</span><span lang="en">EN</span>
+      </a>
+      <button class="neon-btn" type="button" aria-pressed="false"><svg class="icone" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0l1.8 6.2L16 8l-6.2 1.8L8 16l-1.8-6.2L0 8l6.2-1.8z" fill="currentColor"/></svg> Néon</button>
+      <select class="palette" aria-label="Couleurs du mode néon">
+        <option value="violet">Violet</option>
+        <option value="vert">Vert</option>
+        <option value="orange">Orange</option>
+        <option value="bleu">Bleu</option>
+        <option value="rouge">Rouge</option>
+      </select>
+    </div>
+  </nav>
+
+  <main>
+
+    <section>
+      <div class="onglets" role="tablist" aria-label="Jeu et règles">
+        <button type="button" role="tab" aria-selected="true" aria-controls="panneau-jeu">Jeu</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="panneau-regles">Règles</button>
+      </div>
+
+      <div id="panneau-jeu" role="tabpanel">
+        <div class="cartes-commandes">
+          <div class="cartes-boutons">
+            <button class="bouton cartes-nouvelle" type="button">Nouvelle donne</button>
+            <button class="bouton cartes-annuler" type="button">Annuler</button>
+            <button class="bouton cartes-ranger" type="button">Ranger</button>
+          </div>
+        </div>
+        <p class="cartes-statut" role="status"></p>
+        <div class="plateau" data-jeu="freecell"></div>
+        <noscript><p>Ce jeu a besoin de JavaScript.</p></noscript>
+        <dl class="score cartes-infos">
+          <div><dt>Coups</dt><dd data-info="coups">0</dd></div>
+          <div><dt>Victoires</dt><dd data-info="victoires">0</dd></div>
+        </dl>
+      </div>
+
+      <div id="panneau-regles" class="regles" role="tabpanel" hidden>
+        <h3>But</h3>
+        <p>Monter les quatre fondations, en haut à droite : une par couleur, de l'As au Roi.</p>
+        <h3>Déroulement</h3>
+        <ul>
+          <li>Dans les huit colonnes, on empile en ordre décroissant et en alternant rouge et noir.</li>
+          <li>Les quatre cellules, en haut à gauche, gardent chacune une carte de côté.</li>
+          <li>N'importe quelle carte peut aller sur une colonne vide.</li>
+          <li>On déplace une carte à la fois, mais le jeu fait passer une suite d'un bloc s'il reste assez de place.</li>
+        </ul>
+        <p>Le nombre de cartes déplaçables d'un coup vaut (cellules libres + 1), multiplié par 2 pour chaque colonne vide autre que la destination.</p>
+        <p>Presque toutes les donnes peuvent être gagnées.</p>
+        <h3>Commandes</h3>
+        <ul>
+          <li>Fais glisser une carte ou une suite, ou touche-la puis touche sa destination.</li>
+          <li>Un double clic envoie la carte au meilleur endroit possible.</li>
+          <li>« Ranger » envoie aux fondations toutes les cartes qui peuvent y aller.</li>
+          <li>« Annuler » revient en arrière d'un coup, autant de fois que tu veux.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Ewen DUFOUR</p>
+  </footer>
+
+</body>
+</html>

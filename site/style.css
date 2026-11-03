@@ -872,3 +872,172 @@ button.bouton {
   font-size: 1.5rem;
   font-weight: 600;
 }
+
+/* --- Onglets Jeu / Règles ------------------------------------------------ */
+
+.onglets {
+  display: flex;
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--bordure);
+}
+
+.onglets button {
+  padding: 0.3rem 0.1rem 0.5rem;
+  margin-bottom: -1px;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--discret);
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+
+.onglets button:hover { color: var(--accent); }
+
+.onglets button[aria-selected="true"] {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.regles h3 {
+  margin: 1.25rem 0 0.4rem;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.regles h3:first-child { margin-top: 0; }
+.regles p, .regles ul { margin: 0 0 0.6rem; }
+.regles ul { padding-left: 1.25rem; }
+
+/* --- Jeux de cartes ------------------------------------------------------ */
+
+.cartes-commandes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+}
+
+.cartes-commandes .niveaux { justify-content: flex-start; }
+
+.cartes-boutons { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+button.bouton:disabled { color: var(--discret); opacity: 0.55; cursor: default; }
+button.bouton:disabled:hover { border-color: var(--bordure); }
+
+.cartes-statut {
+  min-height: 1.65em;
+  margin: 0 0 0.4rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.plateau {
+  --carte-noire: var(--texte);
+  --carte-rouge: var(--chaud);
+  position: relative;
+  width: 100%;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* En néon, le « rouge » suit la palette : il reste distinct du « noir ». */
+[data-theme="neon"] .plateau { --carte-rouge: var(--majeur-vif); }
+
+.emplacement, .carte {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--carte-l);
+  height: var(--carte-h);
+  padding: 0;
+  font-family: var(--sans);
+  border-radius: calc(var(--carte-l) * 0.09);
+}
+
+.emplacement {
+  font-size: calc(var(--carte-l) * 0.36);
+  color: var(--discret);
+  background: none;
+  border: 1px dashed color-mix(in srgb, var(--discret) 55%, transparent);
+}
+
+.emplacement-pioche { cursor: pointer; }
+
+.carte {
+  overflow: hidden;
+  color: var(--carte-noire);
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--texte) 28%, transparent);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+  cursor: default;
+}
+
+.carte.rouge { color: var(--carte-rouge); }
+
+.carte.prenable {
+  cursor: grab;
+  touch-action: none;
+}
+
+.carte-coin {
+  position: absolute;
+  top: 0.12em;
+  left: 0.22em;
+  font-size: var(--carte-coin);
+  font-weight: 700;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.carte-centre {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12%;
+  font-size: calc(var(--carte-l) * 0.52);
+  line-height: 1;
+  text-align: center;
+}
+
+.carte.retournee {
+  background-color: var(--surface);
+  background-image: repeating-linear-gradient(45deg,
+    var(--accent) 0 2px, var(--accent-doux) 2px 6px);
+}
+
+.carte.retournee span { visibility: hidden; }
+
+.emplacement-pioche ~ .carte.retournee { cursor: pointer; }
+
+.carte.choisie {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.carte.glisse {
+  z-index: 100;
+  cursor: grabbing;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="neon"] .carte { border-color: rgba(var(--majeur-rgb), 0.45); }
+
+[data-theme="neon"] .carte.choisie {
+  border-color: var(--majeur);
+  box-shadow: 0 0 0 1px var(--majeur), 0 0 14px rgba(var(--majeur-rgb), 0.7);
+}
+
+[data-theme="neon"] .carte.retournee {
+  background-image: repeating-linear-gradient(45deg,
+    rgba(var(--majeur-rgb), 0.75) 0 2px, rgba(var(--majeur-rgb), 0.12) 2px 6px);
+}
+
+.cartes-infos { margin-top: 1rem; justify-content: center; }
