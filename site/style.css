@@ -447,33 +447,9 @@ nav { align-items: center; }
 
 /* ==========================================================================
    Mode néon — inspiré du template violet / cyan
-   Polices Orbitron et Rajdhani (SIL OFL) hébergées dans fonts/.
+   Mêmes polices et tailles que le mode normal : seules les couleurs,
+   le fond et les halos changent.
    ========================================================================== */
-
-@font-face {
-  font-family: "Orbitron";
-  font-weight: 400 900;
-  font-display: swap;
-  src: url("fonts/orbitron.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Rajdhani";
-  font-weight: 500;
-  font-display: swap;
-  src: url("fonts/rajdhani-500.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Rajdhani";
-  font-weight: 600;
-  font-display: swap;
-  src: url("fonts/rajdhani-600.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Rajdhani";
-  font-weight: 700;
-  font-display: swap;
-  src: url("fonts/rajdhani-700.woff2") format("woff2");
-}
 
 :root[data-theme="neon"] {
   color-scheme: dark;
@@ -487,17 +463,11 @@ nav { align-items: center; }
   --chaud: #3ee6e0;
   --violet: #b26bff;
   --lueur: 0 0 12px rgba(178, 107, 255, 0.55), 0 0 40px rgba(178, 107, 255, 0.15);
-  --serif: "Orbitron", var(--sans);
-  --sans: "Rajdhani", system-ui, sans-serif;
 
   background: var(--fond);
 }
 
-[data-theme="neon"] body {
-  background: transparent;
-  font-size: 1.12rem;
-  font-weight: 500;
-}
+[data-theme="neon"] body { background: transparent; }
 
 /* Grille de circuit et halos en fond. */
 [data-theme="neon"] body::before,
@@ -524,40 +494,24 @@ nav { align-items: center; }
     radial-gradient(500px circle at 100% 20%, rgba(62, 230, 224, 0.1), transparent 60%);
 }
 
-[data-theme="neon"] h1,
-[data-theme="neon"] h2 { font-weight: 700; letter-spacing: 0.02em; }
-
 [data-theme="neon"] .identite h1 {
-  font-weight: 900;
   color: var(--accent);
   text-shadow: 0 0 20px rgba(178, 107, 255, 0.65), 0 0 60px rgba(178, 107, 255, 0.25);
 }
-
-[data-theme="neon"] h2 { font-size: 1.3rem; }
 
 [data-theme="neon"] h2::before {
   border-color: var(--chaud);
   box-shadow: 0 0 10px rgba(62, 230, 224, 0.6);
 }
 
-[data-theme="neon"] .statut {
-  font-family: var(--sans);
-  font-style: normal;
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--chaud);
-}
+[data-theme="neon"] .statut { color: var(--chaud); }
 
-[data-theme="neon"] strong { color: var(--texte); font-weight: 700; }
+[data-theme="neon"] strong { color: var(--texte); }
 
 [data-theme="neon"] .photo {
   border: 1px solid var(--violet);
   box-shadow: var(--lueur);
 }
-
-[data-theme="neon"] nav a:not(.langue) { font-weight: 600; }
 
 [data-theme="neon"] .bouton-plein {
   color: var(--fond);
