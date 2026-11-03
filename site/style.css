@@ -449,22 +449,67 @@ nav { align-items: center; }
    Mode néon — inspiré du template violet / cyan
    Mêmes polices et tailles que le mode normal : seules les couleurs,
    le fond et les halos changent.
+
+   Quatre palettes, par paires complémentaires : la couleur majeure de
+   l'une est la couleur mineure de l'autre.
+     violet ↔ vert   (vert = le cyan-vert du thème d'origine)
+     orange ↔ bleu
+   --majeur / --majeur-rgb : couleur principale (halos, boutons, frise)
+   --majeur-vif            : version claire (nom, liens)
+   --mineur / --mineur-rgb : couleur secondaire (statut, losanges)
    ========================================================================== */
 
 :root[data-theme="neon"] {
   color-scheme: dark;
+
+  /* Palette par défaut : violet (majeur) / vert (mineur). */
+  --majeur: #b26bff;  --majeur-rgb: 178, 107, 255;  --majeur-vif: #d29bff;
+  --mineur: #3ee6e0;  --mineur-rgb: 62, 230, 224;
   --fond: #0a0714;
   --surface: #120e22;
   --texte: #e6e1f5;
   --discret: #8d84ac;
   --bordure: #2a2148;
-  --accent: #d29bff;
-  --accent-doux: rgba(178, 107, 255, 0.16);
-  --chaud: #3ee6e0;
-  --violet: #b26bff;
-  --lueur: 0 0 12px rgba(178, 107, 255, 0.55), 0 0 40px rgba(178, 107, 255, 0.15);
+
+  --accent: var(--majeur-vif);
+  --accent-doux: rgba(var(--majeur-rgb), 0.16);
+  --chaud: var(--mineur);
+  --lueur: 0 0 12px rgba(var(--majeur-rgb), 0.55), 0 0 40px rgba(var(--majeur-rgb), 0.15);
 
   background: var(--fond);
+}
+
+/* Vert : complémentaire du violet. */
+:root[data-theme="neon"][data-palette="vert"] {
+  --majeur: #3ee6e0;  --majeur-rgb: 62, 230, 224;   --majeur-vif: #8af5f0;
+  --mineur: #b26bff;  --mineur-rgb: 178, 107, 255;
+  --fond: #04100f;
+  --surface: #0a1a1a;
+  --texte: #e1f5f3;
+  --discret: #7fa8a5;
+  --bordure: #173634;
+}
+
+/* Orange : majeur orange, mineur bleu. */
+:root[data-theme="neon"][data-palette="orange"] {
+  --majeur: #ff8a3d;  --majeur-rgb: 255, 138, 61;   --majeur-vif: #ffb37a;
+  --mineur: #3d9bff;  --mineur-rgb: 61, 155, 255;
+  --fond: #120a05;
+  --surface: #1e130b;
+  --texte: #f5ebe1;
+  --discret: #ac9a84;
+  --bordure: #3a2617;
+}
+
+/* Bleu : complémentaire de l'orange. */
+:root[data-theme="neon"][data-palette="bleu"] {
+  --majeur: #3d9bff;  --majeur-rgb: 61, 155, 255;   --majeur-vif: #8cc4ff;
+  --mineur: #ff8a3d;  --mineur-rgb: 255, 138, 61;
+  --fond: #050b16;
+  --surface: #0c1424;
+  --texte: #e1eaf5;
+  --discret: #8497ac;
+  --bordure: #1b2a44;
 }
 
 [data-theme="neon"] body { background: transparent; }
@@ -481,8 +526,8 @@ nav { align-items: center; }
 
 [data-theme="neon"] body::before {
   background-image:
-    linear-gradient(rgba(178, 107, 255, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(178, 107, 255, 0.07) 1px, transparent 1px);
+    linear-gradient(rgba(var(--majeur-rgb), 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--majeur-rgb), 0.07) 1px, transparent 1px);
   background-size: 56px 56px;
   -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 75%);
   mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 75%);
@@ -490,44 +535,44 @@ nav { align-items: center; }
 
 [data-theme="neon"] body::after {
   background:
-    radial-gradient(600px circle at 15% -5%, rgba(178, 107, 255, 0.2), transparent 60%),
-    radial-gradient(500px circle at 100% 20%, rgba(62, 230, 224, 0.1), transparent 60%);
+    radial-gradient(600px circle at 15% -5%, rgba(var(--majeur-rgb), 0.2), transparent 60%),
+    radial-gradient(500px circle at 100% 20%, rgba(var(--mineur-rgb), 0.1), transparent 60%);
 }
 
 [data-theme="neon"] .identite h1 {
-  color: var(--accent);
-  text-shadow: 0 0 20px rgba(178, 107, 255, 0.65), 0 0 60px rgba(178, 107, 255, 0.25);
+  color: var(--majeur-vif);
+  text-shadow: 0 0 20px rgba(var(--majeur-rgb), 0.65), 0 0 60px rgba(var(--majeur-rgb), 0.25);
 }
 
 [data-theme="neon"] h2::before {
-  border-color: var(--chaud);
-  box-shadow: 0 0 10px rgba(62, 230, 224, 0.6);
+  border-color: var(--mineur);
+  box-shadow: 0 0 10px rgba(var(--mineur-rgb), 0.6);
 }
 
-[data-theme="neon"] .statut { color: var(--chaud); }
+[data-theme="neon"] .statut { color: var(--mineur); }
 
 [data-theme="neon"] strong { color: var(--texte); }
 
 [data-theme="neon"] .photo {
-  border: 1px solid var(--violet);
+  border: 1px solid var(--majeur);
   box-shadow: var(--lueur);
 }
 
 [data-theme="neon"] .bouton-plein {
   color: var(--fond);
-  background: var(--violet);
-  border-color: var(--violet);
+  background: var(--majeur);
+  border-color: var(--majeur);
   box-shadow: var(--lueur);
 }
 
 [data-theme="neon"] .bouton-plein:hover {
   color: var(--fond);
-  background: var(--accent);
-  border-color: var(--accent);
+  background: var(--majeur-vif);
+  border-color: var(--majeur-vif);
 }
 
 [data-theme="neon"] .langue::before {
-  background: var(--violet);
+  background: var(--majeur);
   box-shadow: var(--lueur);
 }
 
@@ -537,17 +582,15 @@ nav { align-items: center; }
 [data-theme="neon"] .langue[data-pos="droite"] span:last-child { color: var(--fond); }
 
 [data-theme="neon"] .neon-btn[aria-pressed="true"] {
-  color: var(--chaud);
-  border-color: var(--chaud);
-  box-shadow: 0 0 10px rgba(62, 230, 224, 0.45), inset 0 0 8px rgba(62, 230, 224, 0.2);
+  color: var(--mineur);
+  border-color: var(--mineur);
+  box-shadow: 0 0 10px rgba(var(--mineur-rgb), 0.45), inset 0 0 8px rgba(var(--mineur-rgb), 0.2);
 }
 
 [data-theme="neon"] .stages li::before {
-  border-color: var(--violet);
+  border-color: var(--majeur);
   box-shadow: var(--lueur);
 }
-
-
 
 [data-theme="neon"] .tableau {
   position: relative;
@@ -555,14 +598,14 @@ nav { align-items: center; }
 }
 
 [data-theme="neon"] .tableau:hover {
-  border-color: var(--violet);
-  box-shadow: 0 8px 30px rgba(178, 107, 255, 0.18);
+  border-color: var(--majeur);
+  box-shadow: 0 8px 30px rgba(var(--majeur-rgb), 0.18);
 }
 
 [data-theme="neon"] .liens a:hover {
-  color: var(--accent);
-  border-color: var(--violet);
-  box-shadow: 0 0 12px rgba(178, 107, 255, 0.35);
+  color: var(--majeur-vif);
+  border-color: var(--majeur);
+  box-shadow: 0 0 12px rgba(var(--majeur-rgb), 0.35);
 }
 
 [data-theme="neon"] footer::before {
@@ -570,9 +613,45 @@ nav { align-items: center; }
   display: block;
   height: 1px;
   margin: -1.25rem 0 1.25rem;
-  background: linear-gradient(90deg, var(--violet), transparent);
+  background: linear-gradient(90deg, var(--majeur), transparent);
 }
 
 [data-theme="neon"] footer { border-top: 0; }
 
-[data-theme="neon"] :focus-visible { outline-color: var(--chaud); }
+[data-theme="neon"] :focus-visible { outline-color: var(--mineur); }
+
+/* --- Volet de choix de la palette (visible seulement en mode néon) ------ */
+
+.palette { display: none; }
+
+[data-theme="neon"] .palette {
+  display: inline-block;
+  padding: 0.22rem 1.6rem 0.22rem 0.7rem;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--majeur-vif);
+  border: 1px solid var(--bordure);
+  border-radius: 999px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  /* Petite flèche dessinée en CSS, aux couleurs de la palette. */
+  background:
+    linear-gradient(45deg, transparent 50%, var(--majeur) 50%) right 0.85rem top 55% / 0.3rem 0.3rem no-repeat,
+    linear-gradient(-45deg, transparent 50%, var(--majeur) 50%) right 0.6rem top 55% / 0.3rem 0.3rem no-repeat,
+    var(--surface);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+[data-theme="neon"] .palette:hover {
+  border-color: var(--majeur);
+  box-shadow: 0 0 10px rgba(var(--majeur-rgb), 0.35);
+}
+
+[data-theme="neon"] .palette option,
+[data-theme="neon"] .palette optgroup {
+  color: var(--texte);
+  background: var(--surface);
+}

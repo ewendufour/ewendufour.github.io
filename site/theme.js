@@ -3,6 +3,7 @@
 // Au changement de langue, deux informations passent dans l'adresse :
 //   ?theme=neon|normal : en local (file://), chaque page a son propre
 //                        stockage, le réglage serait sinon perdu ;
+//   &palette=…         : palette néon choisie (violet, vert, orange, bleu) ;
 //   &pos=i:f           : section affichée (indice i, -1 pour l'en-tête) et
 //                        proportion f déjà parcourue, pour retrouver le même
 //                        endroit dans l'autre langue (les textes n'ont pas la
@@ -13,6 +14,7 @@
   var racine = document.documentElement;
   var langue = document.querySelector(".langue");
   var bouton = document.querySelector(".neon-btn");
+  var palette = document.querySelector(".palette");
   var sections = document.querySelectorAll("main section");
   var neon = function () { return racine.dataset.theme === "neon"; };
 
@@ -65,9 +67,10 @@
   try {
     var url = new URL(window.location.href);
     posArrivee = url.searchParams.get("pos");
-    if (url.searchParams.has("theme") || url.searchParams.has("pos")) {
+    if (url.searchParams.has("theme") || url.searchParams.has("pos") || url.searchParams.has("palette")) {
       url.searchParams.delete("theme");
       url.searchParams.delete("pos");
+      url.searchParams.delete("palette");
       history.replaceState(null, "", url.pathname + url.search + url.hash);
     }
   } catch (e) { /* navigateur ancien : sans conséquence */ }
@@ -100,6 +103,17 @@
   }
   majBouton();
 
+  // --- Palette du mode néon (volet déroulant) -----------------------------
+  var paletteCourante = function () { return racine.dataset.palette || "violet"; };
+  if (palette) {
+    palette.value = paletteCourante();
+    palette.addEventListener("change", function () {
+      if (palette.value === "violet") delete racine.dataset.palette;
+      else racine.dataset.palette = palette.value;
+      try { localStorage.setItem("palette", palette.value); } catch (e) { /* non mémorisé */ }
+    });
+  }
+
   // --- Interrupteur FR / EN ------------------------------------------------
   if (langue) {
     var base = langue.getAttribute("href").split("?")[0];
@@ -110,6 +124,7 @@
     var majLien = function () {
       var p = positionCourante();
       langue.setAttribute("href", base + "?theme=" + (neon() ? "neon" : "normal") +
+                                   "&palette=" + paletteCourante() +
                                    (p ? "&pos=" + p : ""));
     };
 
