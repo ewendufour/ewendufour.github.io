@@ -7,11 +7,9 @@
 (function () {
   var TEXTES = {
     fr: {
-      tailles: { debutant: "Débutant (9 × 9, 10 mines)", intermediaire: "Intermédiaire (16 × 16, 40 mines)",
-                 avance: "Avancé (30 × 16, 99 mines)", surhomme: "Surhomme (50 × 50, 500 mines)",
-                 extra: "Extraterrestre (100 × 100, 2000 mines)", perso: "Paramètres personnalisés" },
-      taillesCourt: { debutant: "Débutant", intermediaire: "Intermédiaire", avance: "Avancé",
-                      surhomme: "Surhomme", extra: "Extraterrestre", perso: "Personnalisé" },
+      tailles: { debutant: "9 × 9, 10 mines", intermediaire: "16 × 16, 40 mines",
+                 avance: "30 × 16, 99 mines", surhomme: "50 × 50, 500 mines",
+                 extra: "100 × 100, 2000 mines", perso: "Personnalisée" },
       formes: { carre: "Carrés", hexa: "Hexagones" },
       surfaces: { plan: "Plan", cylindre: "Cylindre", tore: "Tore", mobius: "Ruban de Möbius", klein: "Bouteille de Klein" },
       voisinages: { normal: "Cases voisines", cavalier: "Saut du cavalier",
@@ -37,11 +35,9 @@
       statsVide: "–"
     },
     en: {
-      tailles: { debutant: "Beginner (9 × 9, 10 mines)", intermediaire: "Intermediate (16 × 16, 40 mines)",
-                 avance: "Expert (30 × 16, 99 mines)", surhomme: "Superhuman (50 × 50, 500 mines)",
-                 extra: "Extraterrestrial (100 × 100, 2000 mines)", perso: "Custom settings" },
-      taillesCourt: { debutant: "Beginner", intermediaire: "Intermediate", avance: "Expert",
-                      surhomme: "Superhuman", extra: "Extraterrestrial", perso: "Custom" },
+      tailles: { debutant: "9 × 9, 10 mines", intermediaire: "16 × 16, 40 mines",
+                 avance: "30 × 16, 99 mines", surhomme: "50 × 50, 500 mines",
+                 extra: "100 × 100, 2000 mines", perso: "Custom" },
       formes: { carre: "Squares", hexa: "Hexagons" },
       surfaces: { plan: "Flat", cylindre: "Cylinder", tore: "Torus", mobius: "Möbius strip", klein: "Klein bottle" },
       voisinages: { normal: "Neighbouring cells", cavalier: "Knight's move",
@@ -504,6 +500,17 @@
     }
   };
 
+  // Pas assez de drapeaux : les voisines encore fermées clignotent.
+  var rappeler = function (i) {
+    grille.groupes[i].forEach(function (g) {
+      g.cases.forEach(function (v) {
+        if (ouvert[v] || (drapeaux[v] && drapeaux[v] !== QUESTION)) return;
+        cases[v].classList.add("dem-rappel");
+        setTimeout(function () { cases[v].classList.remove("dem-rappel"); }, 220);
+      });
+    });
+  };
+
   // Ouvre les voisines d'un chiffre entouré d'assez de drapeaux.
   var accord = function (i) {
     if (phase !== "jeu" || !ouvert[i] || valeurs[i]) return;
@@ -515,7 +522,10 @@
       });
       return s === ch[q];
     });
-    if (!pret) return;
+    if (!pret) {
+      rappeler(i);
+      return;
+    }
     grille.groupes[i].forEach(function (g) {
       g.cases.forEach(function (v) {
         if (phase === "jeu" && (!drapeaux[v] || drapeaux[v] === QUESTION) && !ouvert[v]) ouvrirDepuis(v);
@@ -541,7 +551,10 @@
 
   var marquer = function (i) {
     if (phase !== "jeu" && phase !== "attente") return;
-    if (ouvert[i]) return;
+    if (ouvert[i]) {
+      accord(i);
+      return;
+    }
     var sorte = [0].concat(Object.keys(Demineur.repartition(cfg)).map(Number)
       .sort(function (a, b) { return (a < 0 ? 9 : a) - (b < 0 ? 9 : b); }));
     if (reglages.questions) sorte.push(QUESTION);
@@ -712,9 +725,9 @@
     var corps = el(".dem-stats-corps");
     corps.innerHTML = "";
     var r = stats[cleRegles()] || {};
-    Object.keys(textes.taillesCourt).forEach(function (t) {
+    Object.keys(textes.tailles).forEach(function (t) {
       var s = r[t] || {}, tr = document.createElement("tr");
-      [textes.taillesCourt[t], s.gagnees || 0, s.perdues || 0, s.abandons || 0,
+      [textes.tailles[t], s.gagnees || 0, s.perdues || 0, s.abandons || 0,
        s.meilleur === null || s.meilleur === undefined ? textes.statsVide : formatTemps(s.meilleur),
        s.date || textes.statsVide].forEach(function (v) {
         var td = document.createElement("td");

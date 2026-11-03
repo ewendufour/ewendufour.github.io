@@ -1,4 +1,4 @@
-// Jeux de cartes : solitaire (Klondike), Spider et FreeCell, sur un même moteur.
+// Jeux de cartes : solitaire (Klondike), Spider et Cellules libres, sur un même moteur.
 // Le jeu vient de l'attribut data-jeu de la page. Chaque carte est un bouton :
 // on la fait glisser, ou on la touche puis on touche sa destination ; un double
 // clic l'envoie au meilleur endroit possible. La partie en cours, l'option et
@@ -111,7 +111,7 @@
       infoPioche: function () { return pilesDe("pioche")[0].cartes.length; }
     },
 
-    freecell: {
+    cellules: {
       colonnes: 8,
       suite: cartesAlternees,
       paquet: function () { return paquetSimple([0, 1, 2, 3], 1); },

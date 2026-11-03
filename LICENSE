@@ -1,5 +1,26 @@
-MIT License
+Licence du site ewendufour.fr
 
+Ce dépôt réunit des éléments soumis à des conditions différentes.
+
+
+1. Contenus personnels : tous droits réservés
+
+Copyright (c) 2024-2026 Ewen DUFOUR. Tous droits réservés.
+
+La photo (site/img/), le CV (site/cv.pdf) et les textes de présentation des
+pages du site ne sont pas couverts par les licences ci-dessous. Ils ne peuvent
+pas être réutilisés sans autorisation.
+
+
+2. Dictionnaires de Mot mystère
+
+Les fichiers site/jeux/mot-mystere/dico-fr.js et dico-en.js ont leurs propres
+conditions : voir site/jeux/mot-mystere/DICTIONNAIRES.txt.
+
+
+3. Tout le reste, notamment le code : licence MIT
+
+Copyright (c) 2024-2026 Ewen DUFOUR
 Copyright (c) 2024 basicpage
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

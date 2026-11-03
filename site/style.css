@@ -1572,6 +1572,8 @@ button.bouton:disabled:hover { border-color: var(--bordure); }
 .dem-case[data-etat="question"] { color: var(--discret); }
 
 .dem-case.conseil { box-shadow: inset 0 0 0 3px var(--accent); }
+
+.dem-case.dem-rappel { background: color-mix(in srgb, var(--accent) 50%, var(--surface)); }
 .dem-case[data-etat="faux"] { color: var(--discret); text-decoration: line-through; font-size: calc(var(--t) * 0.46); }
 
 .dem-case[data-etat="mine"] {
