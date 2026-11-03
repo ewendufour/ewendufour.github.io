@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Code secret · Ewen DUFOUR</title>
+  <meta name="description" content="Retrouve la combinaison de couleurs de l'ordinateur en dix essais.">
+  <meta name="robots" content="noindex">
+  <meta name="color-scheme" content="light dark">
+  <!-- Applique le mode néon avant l'affichage, pour éviter un flash. -->
+  <script>(function(){var r=document.documentElement,q=null,t=null,p=null,ok=/^(violet|vert|orange|bleu|rouge)$/;try{q=new URLSearchParams(location.search);t=q.get("theme");p=q.get("palette")}catch(e){}if(!ok.test(p||""))p=null;try{if(t==="neon")localStorage.setItem("theme","neon");else if(t==="normal")localStorage.removeItem("theme");else t=localStorage.getItem("theme");if(p)localStorage.setItem("palette",p);else p=localStorage.getItem("palette")}catch(e){}if(t==="neon")r.dataset.theme="neon";if(ok.test(p||""))r.dataset.palette=p})()</script>
+  <link rel="stylesheet" href="../../style.css?v=dev">
+  <script src="../../theme.js?v=dev" defer></script>
+  <script src="code-secret.js?v=dev" defer></script>
+</head>
+<body>
+
+  <header class="entete-page">
+    <h1>Code secret</h1>
+    <p>Retrouve la combinaison de couleurs de l'ordinateur en dix essais.</p>
+  </header>
+
+  <nav>
+    <a href="../../index.html">Accueil</a>
+    <a href="../index.html">Jeux</a>
+    <div class="reglages">
+      <a class="langue" href="../../en/games/code-breaker/index.html" hreflang="en" data-pos="gauche" aria-label="English version">
+        <span>FR</span><span lang="en">EN</span>
+      </a>
+      <button class="neon-btn" type="button" aria-pressed="false"><svg class="icone" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0l1.8 6.2L16 8l-6.2 1.8L8 16l-1.8-6.2L0 8l6.2-1.8z" fill="currentColor"/></svg> Néon</button>
+      <select class="palette" aria-label="Couleurs du mode néon">
+        <option value="violet">Violet</option>
+        <option value="vert">Vert</option>
+        <option value="orange">Orange</option>
+        <option value="bleu">Bleu</option>
+        <option value="rouge">Rouge</option>
+      </select>
+    </div>
+  </nav>
+
+  <main>
+
+    <section>
+      <div class="onglets" role="tablist" aria-label="Jeu et règles">
+        <button type="button" role="tab" aria-selected="true" aria-controls="panneau-jeu">Jeu</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="panneau-regles">Règles</button>
+      </div>
+
+      <div id="panneau-jeu" class="code" role="tabpanel">
+        <div class="code-options">
+          <fieldset class="niveaux">
+            <legend>Positions</legend>
+            <label><input type="radio" name="positions" value="4"><span>4</span></label>
+            <label><input type="radio" name="positions" value="5"><span>5</span></label>
+          </fieldset>
+          <fieldset class="niveaux">
+            <legend>Couleurs</legend>
+            <label><input type="radio" name="couleurs" value="6"><span>6</span></label>
+            <label><input type="radio" name="couleurs" value="8"><span>8</span></label>
+          </fieldset>
+        </div>
+        <p class="code-statut" role="status"></p>
+        <div class="code-solution" role="group" aria-label="Le code" hidden></div>
+        <div class="code-grille"></div>
+        <div class="code-palette"></div>
+        <button class="bouton bouton-plein code-valider" type="button">Valider</button>
+        <button class="bouton code-nouvelle" type="button">Nouvelle partie</button>
+        <dl class="score">
+          <div><dt>Victoires</dt><dd data-info="victoires">0</dd></div>
+          <div><dt>Défaites</dt><dd data-info="defaites">0</dd></div>
+        </dl>
+        <noscript><p>Ce jeu a besoin de JavaScript.</p></noscript>
+      </div>
+
+      <div id="panneau-regles" class="regles" role="tabpanel" hidden>
+        <h3>But</h3>
+        <p>Retrouver la combinaison secrète tirée par l'ordinateur, en dix essais au plus. Une même couleur peut apparaître plusieurs fois dans le code.</p>
+        <h3>Après chaque essai</h3>
+        <ul>
+          <li><strong>Point plein :</strong> un pion a la bonne couleur à la bonne place.</li>
+          <li><strong>Point creux :</strong> un pion a la bonne couleur, mais à la mauvaise place.</li>
+        </ul>
+        <p>Les points ne disent pas de quels pions il s'agit. Un pion répété n'est compté qu'autant de fois qu'il est dans le code.</p>
+        <h3>Difficulté</h3>
+        <p>Choisis 4 ou 5 positions, et 6 ou 8 couleurs. Changer de réglage lance une nouvelle partie.</p>
+        <h3>Commandes</h3>
+        <p>Touche une couleur pour remplir la ligne, puis valide. Au clavier, les chiffres choisissent une couleur, Retour arrière efface et Entrée valide.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Ewen DUFOUR</p>
+  </footer>
+
+</body>
+</html>
