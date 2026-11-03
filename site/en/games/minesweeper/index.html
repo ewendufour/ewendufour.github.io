@@ -65,7 +65,6 @@
         </dl>
 
         <p class="dem-statut" role="status"></p>
-        <p class="dem-legende" hidden>Number: mines on the cross. Colour and dots: mines on the diagonals. <b>0</b> <b>1</b> <b>2</b> <b>3</b> <b>4</b></p>
         <noscript><p>This game needs JavaScript.</p></noscript>
 
         <div class="dem-cadre">
@@ -91,7 +90,6 @@
             <label>Surface<select id="dem-surface"></select></label>
             <label>What a number counts<select id="dem-voisinage"></select></label>
             <label>Mine types<select id="dem-mines"></select></label>
-            <label class="dem-coche"><input type="checkbox" id="dem-couleurs"> Colour mode</label>
           </div>
           <h4>Grid creation</h4>
           <p class="dem-note">Safe first move and pure logic, always.</p>
@@ -154,7 +152,6 @@
         <p>The numbers on the edges show the joins: two equal numbers mark the same row or column.</p>
         <h3>What a number counts</h3>
         <ul>
-          <li><strong>Neighbours count double:</strong> cells sharing a side are worth 2, the others 1.</li>
           <li><strong>Knight's move:</strong> the 8 cells a chess knight's move away.</li>
           <li><strong>Cross:</strong> the 4 cells sharing a side.</li>
           <li><strong>Star:</strong> the 8 neighbours, plus the 4 cells two steps away in a straight line.</li>
@@ -164,8 +161,6 @@
         </ul>
         <h3>Mines</h3>
         <p>A double mine counts for 2 and a triple for 3. An anti-mine counts for −1: a 0 can hide mines that cancel out, and only a truly mine-free area opens by itself.</p>
-        <h3>Colour mode</h3>
-        <p>Each cell gives two pieces of information: the number counts the mines on the cross, and the colour counts those on the diagonals. With hexagons, each counts every other direction. The dots under the number repeat the colour. This mode uses single mines and normal neighbours.</p>
         <h3>Where the idea comes from</h3>
         <p>These variants are inspired by the <a href="https://heptaveegesimal.com/2018/advent-calendar/">Minesveeper advent calendar</a> by Heptaveegesimal. The sizes follow those of <a href="https://www.xn--dmineur-bya.eu/">démineur.eu</a>.</p>
       </div>

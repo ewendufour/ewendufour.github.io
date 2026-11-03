@@ -17,19 +17,15 @@ var Demineur = (function () {
       largeur: r.largeur, hauteur: r.hauteur, nbMines: r.nbMines,
       forme: r.forme === "hexa" ? "hexa" : "carre",
       surface: r.surface || "plan", voisinage: r.voisinage || "normal",
-      mines: r.mines || "simples", couleurs: !!r.couleurs
+      mines: r.mines || "simples"
     };
     if (c.forme === "hexa") {
       if (["plan", "cylindre", "tore"].indexOf(c.surface) < 0) c.surface = "plan";
-      if (["normal", "double", "etendu", "anneau"].indexOf(c.voisinage) < 0) c.voisinage = "normal";
+      if (["normal", "etendu", "anneau"].indexOf(c.voisinage) < 0) c.voisinage = "normal";
       // Le tore hexagonal ne se referme que sur un nombre pair de rangées.
       if (c.surface === "tore" && c.hauteur % 2) c.hauteur++;
     } else if (["etendu"].indexOf(c.voisinage) >= 0) {
       c.voisinage = "normal";
-    }
-    if (c.couleurs) {
-      c.voisinage = "normal";
-      c.mines = "simples";
     }
     // Personne ne regarde le bas de la grille sans raccord vertical.
     if (c.voisinage === "haut") c.surface = "tore";
@@ -107,11 +103,9 @@ var Demineur = (function () {
     var via = function (offs, w) {
       return offs.map(function (o) { return [raccord(c, x + o[0], y + o[1]), w]; });
     };
-    if (c.couleurs) return [creerGroupe(via(ORTHO, 1), i), creerGroupe(via(DIAG, 1), i)];
     var liste;
     switch (c.voisinage) {
       case "cavalier": liste = via(CAVALIER, 1); break;
-      case "double": liste = via(ORTHO, 2).concat(via(DIAG, 1)); break;
       case "croix": liste = via(ORTHO, 1); break;
       case "etoile": liste = via(ORTHO, 1).concat(via(DIAG, 1), via(LOIN, 1)); break;
       case "anneau": liste = via(anneau2(), 1); break;
@@ -124,10 +118,6 @@ var Demineur = (function () {
   var groupesHexa = function (c, i) {
     var six = hexa(c, i);
     var poser = function (l, w) { return l.map(function (k) { return [k, w]; }); };
-    if (c.couleurs) {
-      return [creerGroupe(poser([six[0], six[2], six[4]], 1), i),
-              creerGroupe(poser([six[1], six[3], six[5]], 1), i)];
-    }
     if (c.voisinage === "normal") return [creerGroupe(poser(six, 1), i)];
     var second = {};
     six.forEach(function (v) {
@@ -138,7 +128,7 @@ var Demineur = (function () {
     });
     var loin = Object.keys(second).map(Number);
     if (c.voisinage === "anneau") return [creerGroupe(poser(loin, 1), i)];
-    return [creerGroupe(poser(six, c.voisinage === "double" ? 2 : 1).concat(poser(loin, 1)), i)];
+    return [creerGroupe(poser(six, 1).concat(poser(loin, 1)), i)];
   };
 
   var creerGrille = function (c) {

@@ -1377,38 +1377,19 @@ button.bouton:disabled:hover { border-color: var(--bordure); }
 /* --- Démineur ------------------------------------------------------------ */
 
 .demineur {
-  /* Teintes des chiffres, par valeur ; le thème clair a besoin de teintes sombres. */
+  /* Teintes des chiffres, tirées du thème courant (clair, sombre ou néon). */
   --v0: var(--discret);
-  --v1: #2b47b0;
-  --v2: #1f7a3d;
-  --v3: #c0392b;
-  --v4: #7b3fa8;
-  --v5: #b5651d;
+  --v1: var(--accent);
+  --v2: var(--chaud);
+  --v3: color-mix(in srgb, var(--accent) 50%, var(--chaud));
+  --v4: color-mix(in srgb, var(--accent) 55%, var(--texte));
+  --v5: color-mix(in srgb, var(--chaud) 55%, var(--texte));
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
 .demineur[hidden] { display: none; }
-
-@media (prefers-color-scheme: dark) {
-  .demineur {
-    --v1: #8ea5ff;
-    --v2: #6fd08f;
-    --v3: #ff8f80;
-    --v4: #d3a5ff;
-    --v5: #f0b070;
-  }
-}
-
-/* En néon, le fond est toujours sombre. */
-[data-theme="neon"] .demineur {
-  --v1: #6ec6ff;
-  --v2: #6fe6a0;
-  --v3: #ff8f80;
-  --v4: #d9a5ff;
-  --v5: #ffc46b;
-}
 
 .dem-reglages {
   display: grid;
@@ -1517,25 +1498,6 @@ button.bouton:disabled:hover { border-color: var(--bordure); }
   text-align: center;
 }
 
-.dem-legende {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 0.25rem 0.6rem;
-  margin: 0;
-  font-size: 0.82rem;
-  color: var(--discret);
-}
-
-.dem-legende[hidden] { display: none; }
-.dem-legende b { font-weight: 700; }
-.dem-legende b:nth-of-type(1) { color: var(--v0); }
-.dem-legende b:nth-of-type(2) { color: var(--v1); }
-.dem-legende b:nth-of-type(3) { color: var(--v2); }
-.dem-legende b:nth-of-type(4) { color: var(--v3); }
-.dem-legende b:nth-of-type(5) { color: var(--v4); }
-
 .dem-zone {
   max-height: 85vh;
   overflow: auto;
@@ -1626,16 +1588,6 @@ button.bouton:disabled:hover { border-color: var(--bordure); }
   cursor: default;
 }
 
-.dem-points {
-  position: absolute;
-  bottom: 4%;
-  left: 0;
-  right: 0;
-  font-size: 0.5em;
-  letter-spacing: -0.05em;
-  text-align: center;
-}
-
 [data-theme="neon"] .dem-case[data-etat="fermee"]:hover {
   box-shadow: inset 0 0 8px rgba(var(--majeur-rgb), 0.55);
 }
@@ -1656,9 +1608,7 @@ button.bouton:disabled:hover { border-color: var(--bordure); }
 
 .dem-perso-pixel {
   position: absolute;
-  bottom: 4px;
-  left: -70px;
-  width: 64px;
+  width: 60px;
   height: auto;
   image-rendering: pixelated;
   filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.35));
@@ -1666,7 +1616,6 @@ button.bouton:disabled:hover { border-color: var(--bordure); }
 
 .dem-bulle {
   position: absolute;
-  bottom: 58px;
   padding: 0.3rem 0.7rem;
   font-family: var(--sans);
   font-size: 1rem;
@@ -1694,6 +1643,29 @@ button.bouton:disabled:hover { border-color: var(--bordure); }
   border-top: 0;
   border-right: 0;
 }
+
+.dem-bulle-gauche::after {
+  left: auto;
+  right: -10px;
+  border: 2px solid #2a1a14;
+  border-bottom: 0;
+  border-left: 0;
+}
+
+.dem-rejouer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  padding: 0.6rem 1.6rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  pointer-events: auto;
+  transform: translate(-50%, -50%);
+}
+
+button.dem-rejouer,
+button.dem-rejouer:hover { color: var(--surface); }
 
 .dem-boule {
   position: absolute;

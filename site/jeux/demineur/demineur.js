@@ -14,7 +14,7 @@
                       surhomme: "Surhomme", extra: "Extraterrestre", perso: "Personnalisé" },
       formes: { carre: "Carrés", hexa: "Hexagones" },
       surfaces: { plan: "Plan", cylindre: "Cylindre", tore: "Tore", mobius: "Ruban de Möbius", klein: "Bouteille de Klein" },
-      voisinages: { normal: "Cases voisines", double: "Voisines comptées double", cavalier: "Saut du cavalier",
+      voisinages: { normal: "Cases voisines", cavalier: "Saut du cavalier",
                     croix: "Croix (4 cases)", etoile: "Étoile", anneau: "Anneau lointain", haut: "Regard vers le haut",
                     etendu: "Deux couronnes" },
       mines: { simples: "Simples", doubles: "Simples et doubles", triples: "Jusqu'aux triples",
@@ -28,6 +28,7 @@
       gagne: function (t) { return "Bravo, grille terminée en " + t + " !"; },
       perdu: "Boum ! Cette grille pouvait être résolue par la logique.",
       cri: "EXPLOSION !",
+      rejouer: "Rejouer",
       conseil: "Conseil : la case en surbrillance est sûre. Cette partie ne comptera pas dans les statistiques.",
       sansConseil: "Pas de conseil possible pour l'instant.",
       caseFermee: "fermée", drapeauSur: "drapeau", question: "point d'interrogation", mine: "mine",
@@ -43,7 +44,7 @@
                       surhomme: "Superhuman", extra: "Extraterrestrial", perso: "Custom" },
       formes: { carre: "Squares", hexa: "Hexagons" },
       surfaces: { plan: "Flat", cylindre: "Cylinder", tore: "Torus", mobius: "Möbius strip", klein: "Klein bottle" },
-      voisinages: { normal: "Neighbouring cells", double: "Neighbours count double", cavalier: "Knight's move",
+      voisinages: { normal: "Neighbouring cells", cavalier: "Knight's move",
                     croix: "Cross (4 cells)", etoile: "Star", anneau: "Far ring", haut: "Looking up",
                     etendu: "Two rings" },
       mines: { simples: "Single", doubles: "Single and double", triples: "Up to triple",
@@ -57,6 +58,7 @@
       gagne: function (t) { return "Well done, grid cleared in " + t + "!"; },
       perdu: "Boom! This grid could have been solved by logic.",
       cri: "EXPLOSION!",
+      rejouer: "Play again",
       conseil: "Hint: the highlighted cell is safe. This game will not count in the statistics.",
       sansConseil: "No hint available right now.",
       caseFermee: "closed", drapeauSur: "flag", question: "question mark", mine: "mine",
@@ -79,15 +81,15 @@
   var cadre = el(".dem-cadre");
   var champs = {
     taille: el("#dem-taille"), forme: el("#dem-forme"), surface: el("#dem-surface"),
-    voisinage: el("#dem-voisinage"), mines: el("#dem-mines"), couleurs: el("#dem-couleurs"),
+    voisinage: el("#dem-voisinage"), mines: el("#dem-mines"),
     largeur: el("#dem-largeur"), hauteur: el("#dem-hauteur"), nb: el("#dem-nb"),
     questions: el("#dem-questions"), inverser: el("#dem-inverser"), zoom: el("#dem-zoom")
   };
   var dialogueOptions = el("#dem-options"), dialogueStats = el("#dem-stats");
-  var legende = el(".dem-legende"), compteurs = el(".dem-compteurs");
+  var compteurs = el(".dem-compteurs");
 
   var reglages = { taille: "debutant", forme: "carre", surface: "plan", voisinage: "normal",
-                   mines: "simples", couleurs: false, largeur: 20, hauteur: 20, nbMines: 60,
+                   mines: "simples", largeur: 20, hauteur: 20, nbMines: 60,
                    questions: true, inverser: false, zoom: 100 };
   var stats = {}, tailleCase = CASE_BASE;
   var cfg, grille, cases = [], valeurs = null, ouvert, drapeaux, phase = "attente";
@@ -114,18 +116,12 @@
 
   // Le dialogue s'adapte à ce qui y est choisi : pas de Möbius en hexagones, par exemple.
   var majDialogue = function () {
-    var hexa = champs.forme.value === "hexa", couleurs = champs.couleurs.checked;
+    var hexa = champs.forme.value === "hexa";
     remplir(champs.surface, filtrer(textes.surfaces, hexa ? ["plan", "cylindre", "tore"] : ["plan", "cylindre", "tore", "mobius", "klein"]), champs.surface.value);
-    remplir(champs.voisinage, filtrer(textes.voisinages, hexa ? ["normal", "double", "etendu", "anneau"] : ["normal", "double", "cavalier", "croix", "etoile", "anneau", "haut"]), champs.voisinage.value);
-    if (couleurs) {
-      champs.voisinage.value = "normal";
-      champs.mines.value = "simples";
-    }
+    remplir(champs.voisinage, filtrer(textes.voisinages, hexa ? ["normal", "etendu", "anneau"] : ["normal", "cavalier", "croix", "etoile", "anneau", "haut"]), champs.voisinage.value);
     var haut = champs.voisinage.value === "haut";
     if (haut) champs.surface.value = "tore";
     champs.surface.disabled = haut;
-    champs.voisinage.disabled = couleurs;
-    champs.mines.disabled = couleurs;
     el(".dem-perso").hidden = champs.taille.value !== "perso";
   };
 
@@ -133,7 +129,6 @@
     champs.taille.value = reglages.taille;
     champs.forme.value = reglages.forme;
     champs.mines.value = reglages.mines;
-    champs.couleurs.checked = reglages.couleurs;
     remplir(champs.surface, textes.surfaces, reglages.surface);
     remplir(champs.voisinage, textes.voisinages, reglages.voisinage);
     champs.largeur.value = reglages.largeur;
@@ -152,7 +147,7 @@
 
   var lireDialogue = function () {
     var r = { taille: champs.taille.value, forme: champs.forme.value, surface: champs.surface.value,
-              voisinage: champs.voisinage.value, mines: champs.mines.value, couleurs: champs.couleurs.checked,
+              voisinage: champs.voisinage.value, mines: champs.mines.value,
               questions: champs.questions.checked, inverser: champs.inverser.checked,
               zoom: borne(champs.zoom.value, 50, 200, 100) };
     r.largeur = borne(champs.largeur.value, 5, 100, 20);
@@ -172,13 +167,13 @@
     var d = dimensions();
     return Demineur.normaliser({
       largeur: d.largeur, hauteur: d.hauteur, nbMines: d.nbMines, forme: reglages.forme,
-      surface: reglages.surface, voisinage: reglages.voisinage, mines: reglages.mines, couleurs: reglages.couleurs
+      surface: reglages.surface, voisinage: reglages.voisinage, mines: reglages.mines
     });
   };
 
   // Les statistiques sont propres à chaque jeu de règles.
   var cleRegles = function () {
-    return [cfg.forme, cfg.surface, cfg.voisinage, cfg.mines, cfg.couleurs ? "c" : ""].join("|");
+    return [cfg.forme, cfg.surface, cfg.voisinage, cfg.mines].join("|");
   };
 
   var statsCourantes = function () {
@@ -279,7 +274,6 @@
     focusCase = 0;
     survol = -1;
     caseConseil = -1;
-    legende.hidden = !cfg.couleurs;
   };
 
   var peindre = function (i) {
@@ -294,26 +288,10 @@
       }
       var ch = Demineur.chiffres(grille, valeurs, i);
       b.dataset.etat = "ouverte";
-      if (cfg.couleurs) {
-        // Chiffre : mines d'un groupe ; couleur et points : mines de l'autre.
-        b.dataset.teinte = Math.min(ch[1], 4);
-        b.textContent = "";
-        if (ch[0] || ch[1]) {
-          b.textContent = ch[0];
-          if (ch[1]) {
-            var p = document.createElement("span");
-            p.className = "dem-points";
-            p.textContent = new Array(ch[1] + 1).join("•");
-            b.appendChild(p);
-          }
-        }
-        b.setAttribute("aria-label", libelle(i, ch[0] + " / " + ch[1]));
-      } else {
-        var n = ch[0], videe = Demineur.estVide(grille, valeurs, i);
-        b.dataset.teinte = n < 0 ? 5 : Math.min(n, 4);
-        b.textContent = videe ? "" : String(n).replace("-", "−");
-        b.setAttribute("aria-label", libelle(i, videe ? "0" : String(n)));
-      }
+      var n = ch[0], videe = Demineur.estVide(grille, valeurs, i);
+      b.dataset.teinte = n < 0 ? 5 : Math.min(n, 4);
+      b.textContent = videe ? "" : String(n).replace("-", "−");
+      b.setAttribute("aria-label", libelle(i, videe ? "0" : String(n)));
       return;
     }
     var d = drapeaux[i];
@@ -438,7 +416,11 @@
     }
     majInfos();
     enregistrer();
-    if (!gagne) window.AnimationDefaite.jouer(cadre, textes.cri);
+    if (!gagne) {
+      window.AnimationDefaite.jouer(cadre, {
+        cri: textes.cri, rejouer: textes.rejouer, surRejouer: nouvelle, caseEl: cases[explosee]
+      });
+    }
   };
 
   var ouvrirDepuis = function (depart) {
@@ -494,7 +476,7 @@
     message = textes.generation;
     majInfos();
     var demande = { largeur: cfg.largeur, hauteur: cfg.hauteur, nbMines: cfg.nbMines, forme: cfg.forme,
-                    surface: cfg.surface, voisinage: cfg.voisinage, mines: cfg.mines, couleurs: cfg.couleurs };
+                    surface: cfg.surface, voisinage: cfg.voisinage, mines: cfg.mines };
     var surFin = function (r) {
       if (r.reussi) appliquerGrille(r, depart);
       else echecGeneration();
@@ -708,13 +690,13 @@
     remplirDialogue();
     dialogueOptions.showModal();
   });
-  ["taille", "forme", "voisinage", "couleurs"].forEach(function (k) {
+  ["taille", "forme", "voisinage"].forEach(function (k) {
     champs[k].addEventListener("change", majDialogue);
   });
   el(".dem-options-annuler").addEventListener("click", function () { dialogueOptions.close(); });
   el(".dem-options-ok").addEventListener("click", function () {
     var r = lireDialogue();
-    var regleDeJeu = ["taille", "forme", "surface", "voisinage", "mines", "couleurs"].concat(
+    var regleDeJeu = ["taille", "forme", "surface", "voisinage", "mines"].concat(
       r.taille === "perso" ? ["largeur", "hauteur", "nbMines"] : []);
     var change = regleDeJeu.some(function (k) { return r[k] !== reglages[k]; });
     Object.keys(r).forEach(function (k) { reglages[k] = r[k]; });

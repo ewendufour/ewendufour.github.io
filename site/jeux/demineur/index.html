@@ -65,7 +65,6 @@
         </dl>
 
         <p class="dem-statut" role="status"></p>
-        <p class="dem-legende" hidden>Chiffre : mines de la croix. Couleur et points : mines des diagonales. <b>0</b> <b>1</b> <b>2</b> <b>3</b> <b>4</b></p>
         <noscript><p>Ce jeu a besoin de JavaScript.</p></noscript>
 
         <div class="dem-cadre">
@@ -91,7 +90,6 @@
             <label>Surface<select id="dem-surface"></select></label>
             <label>Ce que compte un chiffre<select id="dem-voisinage"></select></label>
             <label>Types de mines<select id="dem-mines"></select></label>
-            <label class="dem-coche"><input type="checkbox" id="dem-couleurs"> Mode couleurs</label>
           </div>
           <h4>Création de la grille</h4>
           <p class="dem-note">Premier coup sûr et pure logique, toujours.</p>
@@ -154,7 +152,6 @@
         <p>Les numéros sur les bords indiquent les raccords : deux numéros égaux désignent la même rangée ou la même colonne.</p>
         <h3>Ce que compte un chiffre</h3>
         <ul>
-          <li><strong>Voisines comptées double :</strong> les cases qui touchent par un côté valent 2, les autres 1.</li>
           <li><strong>Saut du cavalier :</strong> les 8 cases à un saut de cavalier des échecs.</li>
           <li><strong>Croix :</strong> les 4 cases qui touchent par un côté.</li>
           <li><strong>Étoile :</strong> les 8 voisines, plus les 4 cases à deux pas en ligne droite.</li>
@@ -164,8 +161,6 @@
         </ul>
         <h3>Mines</h3>
         <p>Une mine double compte pour 2 et une triple pour 3. Une anti-mine compte pour −1 : un 0 peut donc cacher des mines qui s'annulent, et seule une vraie zone sans mine s'ouvre seule.</p>
-        <h3>Mode couleurs</h3>
-        <p>Chaque case donne deux informations : le chiffre compte les mines de la croix, et la couleur compte celles des diagonales. En hexagones, chacun compte une direction sur deux. Les points sous le chiffre répètent la couleur. Ce mode utilise des mines simples et le voisinage normal.</p>
         <h3>D'où vient l'idée</h3>
         <p>Ces variantes s'inspirent du <a href="https://heptaveegesimal.com/2018/advent-calendar/">calendrier de l'Avent Minesveeper</a> de Heptaveegesimal. Les tailles reprennent celles de <a href="https://www.xn--dmineur-bya.eu/">démineur.eu</a>.</p>
       </div>

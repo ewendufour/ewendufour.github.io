@@ -1,57 +1,72 @@
-// Animation de défaite du démineur : une petite magicienne en pixel art arrive
-// en marchant, crie son sort dans une bulle, fait tout exploser et repart en
-// dansant. Tout est dessiné ici, sans image externe.
-// Rien n'est joué si le visiteur a demandé moins d'animations.
+// Animation de défaite du démineur : une petite magicienne en pixel art jaillit
+// de la case piégée, atterrit, crie son sort dans une bulle, fait tout exploser
+// et repart en dansant. Un bouton Rejouer apparaît au milieu après l'explosion.
+// Tout est dessiné ici, sans image externe. Si le visiteur a demandé moins
+// d'animations, seul le bouton s'affiche.
 window.AnimationDefaite = (function () {
-  var PALETTE = { h: "#2b2140", b: "#d9a441", p: "#4a2f23", s: "#f2c9a0", e: "#2a1a14",
-                  r: "#7a4fb5", d: "#53347f", w: "#3a2a1e", t: "#8a5a2b", g: "#ff5a3c" };
-
-  var TETE = [
-    "......hh........",
-    ".....hhhh.......",
-    ".....hhhh.......",
-    "....hhhhhh......",
-    "....hhhhhh......",
-    "..bbbbbbbbbb....",
-    ".hhhhhhhhhhhh...",
-    "...pssssssp.....",
-    "...pseSSesp.....",
-    "...pssssssp.....",
-    "....pssssp......"
-  ].map(function (l) { return l.replace(/S/g, "s"); });
+  var PALETTE = {
+    K: "#241a33",   // contour
+    H: "#2f3a8f", j: "#222a6b", Y: "#ffd866", b: "#e0a93f",   // chapeau, ombre, étoile, ruban
+    c: "#f0b8dc", n: "#c98abb",   // cheveux, ombre
+    s: "#ffe2cc", o: "#f7a8a0",   // peau, joues
+    e: "#3a2a5a", w: "#ffffff", m: "#c96a7a",   // yeux, blanc, bouche
+    t: "#46b5d1", u: "#2c84a8",   // robe, ombre
+    g: "#ff6fa8", x: "#7a5238",   // broche et gemme, bottes
+    a: "#b98a4e"    // bâton
+  };
 
   var CORPS = [
-    "...rrrrrrr......",
-    "..rrrrrrrrr.....",
-    "..srrrrrrrs.....",
-    "...ddrrrdd......",
-    "...dddddd.......",
-    "...dddddd......."
+    "..........KK........",
+    ".........KjjK.......",
+    "........KHHHjK......",
+    "........KHYHjK......",
+    ".......KHYYYHjK.....",
+    ".......KHHYHHjK.....",
+    "......KHHHHHHjjK....",
+    "...KKKKbbbbbbbbKKKK.",
+    "..KHHHHHHHHHHHHHHjK.",
+    "....KccccccccccK....",
+    "...KccssccsscscK....",
+    "...KcsssssssssnK....",
+    "...KcseessseesnK....",
+    "...KcsewsssewsnK....",
+    "...KcoossmssoonK....",
+    "....KcsssssssnK.....",
+    "...KcKwwwwwwwKnK....",
+    "...KcKtttgtuuKnK....",
+    "..KttKtttttuuKtuK...",
+    "..KssKtttttuuKssK...",
+    "...KKKttttttuKKK....",
+    "....KtttttttuuK.....",
+    "....KwwwwwwwwwK.....",
+    "....KKKKKKKKKKK....."
   ];
 
   var JAMBES = {
-    a: ["....ww..ww......", "....ww..ww......"],
-    b: ["...ww....ww.....", "...ww....ww....."],
-    c: ["....ww...ww.....", "....ww....ww...."],
-    d: ["...ww...ww......", "..ww....ww......"]
+    a: [".....KxxK..KxxK.....", ".....KxxK..KxxK.....", ".....KxxxK.KxxxK....", ".....KKKKK.KKKKK...."],
+    b: ["....KxxK....KxxK....", "...KxxK......KxxK...", "...KxxxK.....KxxxK..", "...KKKKK.....KKKKK.."],
+    c: [".....KxxK..KxxK.....", "......KKK..KKK......", "....................", "...................."],
+    d: ["....KxxK...KxxK.....", "....KxxK....KxxK....", "....KxxxK...KxxxK...", "....KKKKK...KKKKK..."]
   };
 
-  // Le bâton est peint par-dessus : [colonne, de la ligne, à la ligne].
+  // Le bâton : [colonne, de la ligne, à la ligne]. Les bras levés remplacent ceux
+  // du dessin de base : `gauche` et `droite` indiquent celui qui se lève.
   var IMAGES = {
-    marche1: { jambes: "a", baton: [13, 3, 18] },
-    marche2: { jambes: "b", baton: [13, 3, 18] },
-    sort: { jambes: "a", baton: [14, 0, 14], bras: { ligne: 11, de: 10, a: 13 } },
-    danse1: { jambes: "c", baton: [14, 0, 14], bras: { ligne: 10, de: 10, a: 13 } },
-    danse2: { jambes: "d", baton: [1, 0, 14], bras: { ligne: 10, de: 2, a: 3 } }
+    marche1: { jambes: "a", baton: [17, 12, 26] },
+    marche2: { jambes: "b", baton: [17, 12, 26] },
+    saut: { jambes: "c", gauche: true, droite: true },
+    sort: { jambes: "a", droite: true, baton: [18, 3, 20] },
+    danse1: { jambes: "a", droite: true, baton: [18, 3, 20] },
+    danse2: { jambes: "d", gauche: true, baton: [1, 3, 20] }
   };
 
   var cache = {};
   var dessiner = function (nom) {
     if (cache[nom]) return cache[nom];
     var def = IMAGES[nom];
-    var lignes = TETE.concat(CORPS, JAMBES[def.jambes]);
+    var lignes = CORPS.concat(JAMBES[def.jambes]);
     var toile = document.createElement("canvas");
-    toile.width = 16;
+    toile.width = 20;
     toile.height = lignes.length;
     var c = toile.getContext("2d");
     var point = function (x, y, cle) {
@@ -61,10 +76,33 @@ window.AnimationDefaite = (function () {
     lignes.forEach(function (l, y) {
       l.split("").forEach(function (cle, x) { if (PALETTE[cle]) point(x, y, cle); });
     });
-    for (var y = def.baton[1]; y <= def.baton[2]; y++) point(def.baton[0], y, "t");
-    point(def.baton[0], def.baton[1], "g");
-    if (def.bras) {
-      for (var x = def.bras.de; x <= def.bras.a; x++) point(x, def.bras.ligne, "s");
+    var leverBras = function (cotes) {
+      // Efface le bras le long du corps, puis le redessine vers le haut.
+      cotes.forEach(function (cote) {
+        var d = cote === "droite";
+        c.clearRect(d ? 14 : 2, 18, 3, 2);
+        point(d ? 13 : 5, 18, "K");
+        point(d ? 13 : 5, 19, "K");
+        [[0, 17], [0, 16], [1, 15], [1, 14]].forEach(function (p) {
+          var x = d ? 15 + p[0] : 4 - p[0];
+          point(x, p[1], p[1] === 14 ? "s" : "t");
+          point(d ? x + 1 : x - 1, p[1], "K");
+        });
+        point(d ? 16 : 3, 13, "K");
+      });
+    };
+    var bras = [];
+    if (def.gauche) bras.push("gauche");
+    if (def.droite) bras.push("droite");
+    leverBras(bras);
+    if (def.baton) {
+      var col = def.baton[0];
+      for (var y = def.baton[1]; y <= def.baton[2]; y++) point(col, y, "a");
+      var haut = def.baton[1];
+      [[0, -2], [-1, -1], [0, -1], [1, -1], [0, 0]].forEach(function (p) {
+        point(col + p[0], haut + p[1], "g");
+      });
+      point(col, haut - 1, "w");
     }
     return (cache[nom] = toile.toDataURL());
   };
@@ -97,39 +135,62 @@ window.AnimationDefaite = (function () {
     }
   };
 
-  var jouer = function (cadre, cri) {
+  // options : cri, rejouer (texte du bouton), surRejouer, caseEl (la case piégée).
+  var jouer = function (cadre, options) {
     arreter();
-    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (!cadre.animate) return;
-
     scene = document.createElement("div");
     scene.className = "dem-scene";
     scene.setAttribute("aria-hidden", "true");
-    var perso = document.createElement("img");
-    perso.className = "dem-perso-pixel";
-    perso.alt = "";
-    var bulle = document.createElement("div");
-    bulle.className = "dem-bulle";
-    bulle.textContent = cri;
-    bulle.hidden = true;
-    scene.appendChild(perso);
-    scene.appendChild(bulle);
 
     // La scène couvre la partie visible du terrain : une grande grille dépasse
     // souvent de l'écran, et la magicienne doit rester à portée de vue.
     var r = cadre.getBoundingClientRect();
     var gauche = Math.max(r.left, 0), droite = Math.min(r.right, window.innerWidth);
-    var haut = Math.max(r.top, 0), bas = Math.min(r.bottom, window.innerHeight);
-    if (bas - haut < 120) { haut = 0; bas = window.innerHeight; }
-    var largeur = droite - gauche, hauteur = bas - haut;
+    var dessus = Math.max(r.top, 0), dessous = Math.min(r.bottom, window.innerHeight);
+    if (dessous - dessus < 160) { dessus = 0; dessous = window.innerHeight; }
+    var largeur = droite - gauche, hauteur = dessous - dessus;
     scene.style.left = gauche + "px";
-    scene.style.top = haut + "px";
+    scene.style.top = dessus + "px";
     scene.style.width = largeur + "px";
     scene.style.height = hauteur + "px";
     cadre.appendChild(scene);
 
-    var arrivee = Math.max(10, Math.round(largeur * 0.16));
     var centre = { x: largeur / 2, y: hauteur / 2 };
+    var montrerBouton = function () {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "bouton bouton-plein dem-rejouer";
+      b.textContent = options.rejouer;
+      b.addEventListener("click", options.surRejouer);
+      scene.removeAttribute("aria-hidden");
+      scene.appendChild(b);
+      b.focus({ preventScroll: true });
+    };
+
+    var moinsAnime = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (moinsAnime || !cadre.animate) {
+      montrerBouton();
+      return;
+    }
+
+    var L = 60, H = 84;   // taille affichée : trois fois le dessin
+    var perso = document.createElement("img");
+    perso.className = "dem-perso-pixel";
+    perso.alt = "";
+    var bulle = document.createElement("div");
+    bulle.className = "dem-bulle";
+    bulle.textContent = options.cri;
+    bulle.hidden = true;
+    scene.appendChild(perso);
+    scene.appendChild(bulle);
+
+    // Départ : le centre de la case piégée. Arrivée : en bas, dans sa colonne.
+    var c = options.caseEl.getBoundingClientRect();
+    var departX = c.left + c.width / 2 - gauche - L / 2;
+    var departY = c.top + c.height / 2 - dessus - H / 2;
+    var finX = Math.max(6, Math.min(largeur - L - 6, departX));
+    var finY = Math.max(0, hauteur - H - 4);
+    var sommet = Math.max(0, Math.min(departY, finY) - 70);
 
     var alterner = function (a, b, delai) {
       if (rythme !== null) clearInterval(rythme);
@@ -139,22 +200,31 @@ window.AnimationDefaite = (function () {
     };
     var plus = function (ms, f) { minuteurs.push(setTimeout(f, ms)); };
 
-    // Elle arrive en marchant.
-    alterner("marche1", "marche2", 170);
-    perso.animate([{ left: "-70px" }, { left: arrivee + "px" }],
-                  { duration: 1600, easing: "linear", fill: "forwards" });
+    // Elle jaillit de la case et retombe sur ses pieds.
+    perso.src = dessiner("saut");
+    perso.style.left = finX + "px";
+    perso.style.top = finY + "px";
+    perso.animate([
+      { left: departX + "px", top: departY + "px", transform: "scale(0.2)", easing: "ease-out" },
+      { left: (departX + finX) / 2 + "px", top: sommet + "px", transform: "scale(1)", offset: 0.5, easing: "ease-in" },
+      { left: finX + "px", top: finY + "px", transform: "scale(1)" }
+    ], { duration: 800 });
 
-    // Elle lève son bâton et crie.
-    plus(1600, function () {
-      clearInterval(rythme);
-      rythme = null;
+    plus(800, function () { perso.src = dessiner("marche1"); });
+
+    // Elle lève son bâton et crie, la bulle du côté où il y a de la place.
+    plus(1150, function () {
       perso.src = dessiner("sort");
-      bulle.style.left = arrivee + 54 + "px";
+      var aDroite = finX + L + 140 < largeur;
+      bulle.classList.toggle("dem-bulle-gauche", !aDroite);
+      bulle.style.top = finY + 2 + "px";
+      if (aDroite) bulle.style.left = finX + L + 8 + "px";
+      else bulle.style.right = largeur - finX + 8 + "px";
       bulle.hidden = false;
     });
 
     // Tout explose.
-    plus(3000, function () {
+    plus(2550, function () {
       bulle.hidden = true;
       var boule = document.createElement("div");
       boule.className = "dem-boule";
@@ -167,7 +237,7 @@ window.AnimationDefaite = (function () {
         { width: taille * 0.8 + "px", height: taille * 0.8 + "px", opacity: 1, offset: 0.45 },
         { width: taille + "px", height: taille + "px", opacity: 0 }
       ], { duration: 950, easing: "steps(10)", fill: "forwards" });
-      b.onfinish = boule.remove.bind(boule);
+      plus(1000, boule.remove.bind(boule));
       eclats(largeur, hauteur, centre);
       cadre.querySelector(".dem-zone").animate([
         { transform: "translate(0, 0)" }, { transform: "translate(-7px, 4px)" },
@@ -176,13 +246,19 @@ window.AnimationDefaite = (function () {
       ], { duration: 520, iterations: 2 });
     });
 
+    plus(3500, montrerBouton);
+
     // Satisfaite, elle danse puis repart en dansant.
-    plus(4100, function () { alterner("danse1", "danse2", 260); });
-    plus(5300, function () {
-      perso.animate([{ left: arrivee + "px" }, { left: largeur + 70 + "px" }],
-                    { duration: 3000, easing: "linear", fill: "forwards" });
+    plus(3600, function () { alterner("danse1", "danse2", 260); });
+    plus(4800, function () {
+      perso.animate([{ left: finX + "px" }, { left: largeur + 70 + "px" }],
+                    { duration: 2800, easing: "linear", fill: "forwards" });
     });
-    plus(8400, arreter);
+    plus(7700, function () {
+      clearInterval(rythme);
+      rythme = null;
+      perso.remove();
+    });
   };
 
   return { jouer: jouer, arreter: arreter };
