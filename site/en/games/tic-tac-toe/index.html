@@ -40,25 +40,49 @@
 
   <main>
 
-    <section class="morpion">
-      <fieldset class="niveaux">
-        <legend>Difficulty</legend>
-        <label><input type="radio" name="niveau" value="faible"><span>Easy</span></label>
-        <label><input type="radio" name="niveau" value="moyen"><span>Medium</span></label>
-        <label><input type="radio" name="niveau" value="fort"><span>Hard</span></label>
-      </fieldset>
+    <section>
+      <div class="onglets" role="tablist" aria-label="Game and rules">
+        <button type="button" role="tab" aria-selected="true" aria-controls="panneau-jeu">Game</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="panneau-regles">Rules</button>
+      </div>
 
-      <p class="morpion-statut" role="status"></p>
-      <div class="grille" role="group" aria-label="Tic-tac-toe board"></div>
-      <noscript><p>This game needs JavaScript.</p></noscript>
+      <div id="panneau-jeu" class="morpion" role="tabpanel">
+        <fieldset class="niveaux">
+          <legend>Difficulty</legend>
+          <label><input type="radio" name="niveau" value="faible"><span>Easy</span></label>
+          <label><input type="radio" name="niveau" value="moyen"><span>Medium</span></label>
+          <label><input type="radio" name="niveau" value="fort"><span>Hard</span></label>
+        </fieldset>
 
-      <button class="bouton morpion-nouvelle" type="button">New game</button>
+        <p class="morpion-statut" role="status"></p>
+        <div class="grille" role="group" aria-label="Tic-tac-toe board"></div>
+        <noscript><p>This game needs JavaScript.</p></noscript>
 
-      <dl class="score">
-        <div><dt>Wins</dt><dd data-score="victoires">0</dd></div>
-        <div><dt>Draws</dt><dd data-score="nuls">0</dd></div>
-        <div><dt>Losses</dt><dd data-score="defaites">0</dd></div>
-      </dl>
+        <button class="bouton morpion-nouvelle" type="button">New game</button>
+
+        <dl class="score">
+          <div><dt>Wins</dt><dd data-score="victoires">0</dd></div>
+          <div><dt>Draws</dt><dd data-score="nuls">0</dd></div>
+          <div><dt>Losses</dt><dd data-score="defaites">0</dd></div>
+        </dl>
+      </div>
+
+      <div id="panneau-regles" class="regles" role="tabpanel" hidden>
+        <h3>Goal</h3>
+        <p>Line up three Xs in a row, column or diagonal before the computer lines up three Os.</p>
+        <h3>How to play</h3>
+        <ul>
+          <li>Players take turns placing their symbol on a free square.</li>
+          <li>If the board fills up with no line, the game is a draw.</li>
+          <li>The first player changes every game.</li>
+        </ul>
+        <h3>Difficulty</h3>
+        <ul>
+          <li><strong>Easy:</strong> the computer plays at random.</li>
+          <li><strong>Medium:</strong> it wins or blocks you when it can, and plays at random otherwise.</li>
+          <li><strong>Hard:</strong> it plays perfectly, so the best you can get is a draw.</li>
+        </ul>
+      </div>
     </section>
 
   </main>

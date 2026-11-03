@@ -730,6 +730,8 @@ nav { align-items: center; }
   gap: 1rem;
 }
 
+.morpion[hidden] { display: none; }
+
 .niveaux {
   display: flex;
   flex-wrap: wrap;
@@ -1041,3 +1043,309 @@ button.bouton:disabled:hover { border-color: var(--bordure); }
 }
 
 .cartes-infos { margin-top: 1rem; justify-content: center; }
+
+/* --- Bataille navale ----------------------------------------------------- */
+
+.naval {
+  --navire: color-mix(in srgb, var(--accent) 38%, var(--surface));
+  --touche: var(--chaud);
+}
+
+/* En néon, les navires prennent la couleur mineure et les tirs la majeure. */
+[data-theme="neon"] .naval {
+  --navire: color-mix(in srgb, var(--mineur) 32%, var(--surface));
+  --touche: var(--majeur-vif);
+}
+
+.naval-placement {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.9rem;
+}
+
+.naval-placement[hidden] { display: none; }
+
+.naval-statut {
+  min-height: 1.65em;
+  margin: 0 0 0.75rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.naval-mers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.naval-panneau {
+  flex: 0 1 21rem;
+  min-width: 0;
+}
+
+.naval-panneau[hidden] { display: none; }
+
+.naval-panneau h3 {
+  margin: 0 0 0.4rem;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.mer {
+  display: grid;
+  grid-template-columns: 1.15rem repeat(10, 1fr);
+  gap: 2px;
+}
+
+.mer-entete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--discret);
+}
+
+.mer-case {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  aspect-ratio: 1;
+  padding: 0;
+  background: var(--surface);
+  border: 1px solid var(--bordure);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.mer-case[aria-disabled="true"] { cursor: default; }
+
+.mer-ordi .mer-case[aria-disabled="false"]:hover,
+.mer-joueur .mer-case[aria-disabled="false"]:hover {
+  border-color: var(--accent);
+}
+
+.mer-case[data-etat="navire"] { background: var(--navire); border-color: var(--accent); }
+
+/* Raté : un point ; touché et coulé : une croix. */
+.mer-case[data-etat="eau"]::after {
+  content: "";
+  width: 22%;
+  height: 22%;
+  border-radius: 50%;
+  background: var(--discret);
+}
+
+.mer-case[data-etat="touche"]::before,
+.mer-case[data-etat="touche"]::after,
+.mer-case[data-etat="coule"]::before,
+.mer-case[data-etat="coule"]::after {
+  content: "";
+  position: absolute;
+  width: 62%;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--touche);
+  transform: rotate(45deg);
+}
+
+.mer-case[data-etat="touche"]::after,
+.mer-case[data-etat="coule"]::after { transform: rotate(-45deg); }
+
+.mer-case[data-etat="touche"] {
+  background: color-mix(in srgb, var(--touche) 22%, var(--surface));
+  border-color: var(--touche);
+}
+
+.mer-case[data-etat="coule"] { background: var(--touche); border-color: var(--touche); }
+
+.mer-case[data-etat="coule"]::before,
+.mer-case[data-etat="coule"]::after { background: var(--surface); }
+
+.mer-case.dernier { outline: 2px solid var(--accent); outline-offset: 1px; z-index: 1; }
+
+.mer-case.apercu { background: var(--navire); border-color: var(--accent); }
+
+.mer-case.apercu-ko {
+  background: color-mix(in srgb, var(--chaud) 25%, var(--surface));
+  border-color: var(--chaud);
+}
+
+[data-theme="neon"] .mer-case[data-etat="touche"],
+[data-theme="neon"] .mer-case[data-etat="coule"] {
+  box-shadow: 0 0 8px rgba(var(--majeur-rgb), 0.55);
+}
+
+.flotte {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.7rem;
+  margin: 0.6rem 0 0;
+  padding: 0;
+  font-size: 0.8rem;
+  color: var(--discret);
+  list-style: none;
+}
+
+.flotte .coule { text-decoration: line-through; opacity: 0.6; }
+
+.naval-bas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+/* --- Jeux de mots : mot mystère et pendu --------------------------------- */
+
+.mots {
+  --juste: var(--accent);
+  --ailleurs: var(--chaud);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.mots[hidden] { display: none; }
+
+[data-theme="neon"] .mots { --juste: var(--majeur); --ailleurs: var(--mineur); }
+
+.mots-statut {
+  min-height: 1.65em;
+  margin: 0;
+  font-weight: 500;
+  text-align: center;
+}
+
+.mots-grille {
+  display: grid;
+  gap: 0.3rem;
+  width: min(100%, calc(var(--lettres) * 3.2rem));
+}
+
+.mots-ligne {
+  display: grid;
+  grid-template-columns: repeat(var(--lettres), 1fr);
+  gap: 0.3rem;
+}
+
+.mots-case {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  background: var(--surface);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+}
+
+.mots-case[data-etat="saisie"] { border-color: var(--discret); }
+
+/* Pas seulement la couleur : plein si bien placée, cadre épais si mal placée. */
+.mots-case[data-etat="place"] {
+  color: var(--surface);
+  background: var(--juste);
+  border-color: var(--juste);
+}
+
+.mots-case[data-etat="present"] {
+  color: var(--ailleurs);
+  border: 3px solid var(--ailleurs);
+}
+
+.mots-case[data-etat="absent"] {
+  color: var(--discret);
+  background: none;
+  border-style: dashed;
+}
+
+[data-theme="neon"] .mots-case[data-etat="place"] { box-shadow: 0 0 10px rgba(var(--majeur-rgb), 0.55); }
+[data-theme="neon"] .mots-case[data-etat="present"] { box-shadow: 0 0 8px rgba(var(--mineur-rgb), 0.45); }
+
+.clavier {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  width: min(100%, 32rem);
+}
+
+.clavier-rangee {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.touche {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 2.8rem;
+  height: 2.7rem;
+  padding: 0;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--texte);
+  background: var(--surface);
+  border: 1px solid var(--bordure);
+  border-radius: 0.4rem;
+  cursor: pointer;
+}
+
+.touche-large { flex-grow: 1.5; max-width: 4.2rem; font-size: 1.1rem; }
+
+.touche:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.touche:disabled { cursor: default; }
+
+.touche[data-etat="place"] { color: var(--surface); background: var(--juste); border-color: var(--juste); }
+.touche[data-etat="place"]:disabled { opacity: 1; }
+.touche[data-etat="present"] { color: var(--ailleurs); border: 2px solid var(--ailleurs); }
+.touche[data-etat="absent"] { color: var(--discret); background: none; border-style: dashed; opacity: 0.6; }
+
+.pendu-dessin {
+  width: min(70%, 13rem);
+  height: auto;
+  fill: none;
+  stroke: var(--texte);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.pendu-dessin .socle { stroke: var(--discret); }
+
+.pendu-dessin [data-erreur] { visibility: hidden; stroke: var(--ailleurs); }
+.pendu-dessin [data-erreur].visible { visibility: visible; }
+
+[data-theme="neon"] .pendu-dessin { filter: drop-shadow(0 0 4px rgba(var(--majeur-rgb), 0.5)); }
+
+.pendu-mot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.pendu-lettre {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.8rem;
+  height: 2.3rem;
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 600;
+  border-bottom: 2px solid var(--discret);
+}
+
+.pendu-lettre.manquee { color: var(--ailleurs); }

@@ -114,6 +114,18 @@
     });
   }
 
+  // --- Onglets Jeu / Règles des pages de jeux ------------------------------
+  var onglets = document.querySelectorAll('.onglets [role="tab"]');
+  onglets.forEach(function (onglet) {
+    onglet.addEventListener("click", function () {
+      onglets.forEach(function (o) {
+        var actif = o === onglet;
+        o.setAttribute("aria-selected", actif ? "true" : "false");
+        document.getElementById(o.getAttribute("aria-controls")).hidden = !actif;
+      });
+    });
+  });
+
   // --- Interrupteur FR / EN ------------------------------------------------
   if (langue) {
     var base = langue.getAttribute("href").split("?")[0];

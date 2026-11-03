@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Battleship · Ewen DUFOUR</title>
+  <meta name="description" content="Battleship against a computer that does not cheat.">
+  <meta name="robots" content="noindex">
+  <meta name="color-scheme" content="light dark">
+  <!-- Applies neon mode before first paint to avoid a flash. -->
+  <script>(function(){var r=document.documentElement,q=null,t=null,p=null,ok=/^(violet|vert|orange|bleu|rouge)$/;try{q=new URLSearchParams(location.search);t=q.get("theme");p=q.get("palette")}catch(e){}if(!ok.test(p||""))p=null;try{if(t==="neon")localStorage.setItem("theme","neon");else if(t==="normal")localStorage.removeItem("theme");else t=localStorage.getItem("theme");if(p)localStorage.setItem("palette",p);else p=localStorage.getItem("palette")}catch(e){}if(t==="neon")r.dataset.theme="neon";if(ok.test(p||""))r.dataset.palette=p})()</script>
+  <link rel="stylesheet" href="../../../style.css?v=dev">
+  <script src="../../../theme.js?v=dev" defer></script>
+  <script src="../../../jeux/bataille-navale/bataille.js?v=dev" defer></script>
+</head>
+<body>
+
+  <header class="entete-page">
+    <h1>Battleship</h1>
+    <p>Place your fleet, then sink the computer's. It never sees your ships.</p>
+  </header>
+
+  <nav>
+    <a href="../../index.html">Home</a>
+    <a href="../index.html">Games</a>
+    <div class="reglages">
+      <a class="langue" href="../../../jeux/bataille-navale/index.html" hreflang="fr" data-pos="droite" aria-label="Version française">
+        <span lang="fr">FR</span><span>EN</span>
+      </a>
+      <button class="neon-btn" type="button" aria-pressed="false"><svg class="icone" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0l1.8 6.2L16 8l-6.2 1.8L8 16l-1.8-6.2L0 8l6.2-1.8z" fill="currentColor"/></svg> Neon</button>
+      <select class="palette" aria-label="Neon colours">
+        <option value="violet">Purple</option>
+        <option value="vert">Green</option>
+        <option value="orange">Orange</option>
+        <option value="bleu">Blue</option>
+        <option value="rouge">Red</option>
+      </select>
+    </div>
+  </nav>
+
+  <main>
+
+    <section>
+      <div class="onglets" role="tablist" aria-label="Game and rules">
+        <button type="button" role="tab" aria-selected="true" aria-controls="panneau-jeu">Game</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="panneau-regles">Rules</button>
+      </div>
+
+      <div id="panneau-jeu" class="naval" role="tabpanel">
+        <div class="naval-placement">
+          <button class="bouton naval-pivoter" type="button">Horizontal</button>
+          <button class="bouton naval-hasard" type="button">Random</button>
+          <button class="bouton naval-effacer" type="button">Clear</button>
+          <button class="bouton bouton-plein naval-commencer" type="button">Start</button>
+        </div>
+        <p class="naval-statut" role="status"></p>
+        <noscript><p>This game needs JavaScript.</p></noscript>
+
+        <div class="naval-mers">
+          <div class="naval-panneau naval-adverse" hidden>
+            <h3>Enemy fleet</h3>
+            <div class="mer mer-ordi" role="group" aria-label="Computer's grid"></div>
+            <ul class="flotte flotte-ordi"></ul>
+          </div>
+          <div class="naval-panneau">
+            <h3>Your fleet</h3>
+            <div class="mer mer-joueur" role="group" aria-label="Your grid"></div>
+            <ul class="flotte flotte-joueur"></ul>
+          </div>
+        </div>
+
+        <div class="naval-bas">
+          <button class="bouton naval-nouvelle" type="button">New game</button>
+          <dl class="score">
+            <div><dt>Shots</dt><dd data-info="tirs">0</dd></div>
+            <div><dt>Wins</dt><dd data-info="victoires">0</dd></div>
+            <div><dt>Losses</dt><dd data-info="defaites">0</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div id="panneau-regles" class="regles" role="tabpanel" hidden>
+        <h3>Goal</h3>
+        <p>Sink the computer's five ships before it sinks yours.</p>
+        <h3>Placement</h3>
+        <ul>
+          <li>Each side places a carrier (5 squares), a battleship (4), a cruiser (3), a submarine (3) and a destroyer (2).</li>
+          <li>Tap a square to place the ship shown. "Horizontal" or the R key changes its direction.</li>
+          <li>Tap a ship already placed to pick it back up.</li>
+          <li>Ships cannot overlap, but they can touch.</li>
+        </ul>
+        <h3>Battle</h3>
+        <ul>
+          <li>Each side fires once per turn, even after a hit. The first player changes every game.</li>
+          <li>A dot marks a miss, a cross a hit, and a filled square a sunk ship.</li>
+          <li>When a ship sinks, its name and squares are announced to both sides.</li>
+        </ul>
+        <h3>The computer does not cheat</h3>
+        <p>It only knows the answers to its own shots: miss, hit or sunk. From those it works out where your ships can still be and keeps firing at a damaged ship, without ever seeing your grid. At the end, its remaining ships are revealed.</p>
+        <h3>Keyboard</h3>
+        <p>Arrow keys move around a grid, and Enter places a ship or fires.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Ewen DUFOUR</p>
+  </footer>
+
+</body>
+</html>

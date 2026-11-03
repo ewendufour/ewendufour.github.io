@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mystery word · Ewen DUFOUR</title>
+  <meta name="description" content="Find the hidden word: each guess tells you how your letters did.">
+  <meta name="robots" content="noindex">
+  <meta name="color-scheme" content="light dark">
+  <!-- Applies neon mode before first paint to avoid a flash. -->
+  <script>(function(){var r=document.documentElement,q=null,t=null,p=null,ok=/^(violet|vert|orange|bleu|rouge)$/;try{q=new URLSearchParams(location.search);t=q.get("theme");p=q.get("palette")}catch(e){}if(!ok.test(p||""))p=null;try{if(t==="neon")localStorage.setItem("theme","neon");else if(t==="normal")localStorage.removeItem("theme");else t=localStorage.getItem("theme");if(p)localStorage.setItem("palette",p);else p=localStorage.getItem("palette")}catch(e){}if(t==="neon")r.dataset.theme="neon";if(ok.test(p||""))r.dataset.palette=p})()</script>
+  <link rel="stylesheet" href="../../../style.css?v=dev">
+  <script src="../../../theme.js?v=dev" defer></script>
+  <script src="../../../jeux/mots.js?v=dev" defer></script>
+  <script src="../../../jeux/mot-mystere/mot-mystere.js?v=dev" defer></script>
+</head>
+<body>
+
+  <header class="entete-page">
+    <h1>Mystery word</h1>
+    <p>Find the hidden word: each guess tells you how your letters did.</p>
+  </header>
+
+  <nav>
+    <a href="../../index.html">Home</a>
+    <a href="../index.html">Games</a>
+    <div class="reglages">
+      <a class="langue" href="../../../jeux/mot-mystere/index.html" hreflang="fr" data-pos="droite" aria-label="Version française">
+        <span lang="fr">FR</span><span>EN</span>
+      </a>
+      <button class="neon-btn" type="button" aria-pressed="false"><svg class="icone" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0l1.8 6.2L16 8l-6.2 1.8L8 16l-1.8-6.2L0 8l6.2-1.8z" fill="currentColor"/></svg> Neon</button>
+      <select class="palette" aria-label="Neon colours">
+        <option value="violet">Purple</option>
+        <option value="vert">Green</option>
+        <option value="orange">Orange</option>
+        <option value="bleu">Blue</option>
+        <option value="rouge">Red</option>
+      </select>
+    </div>
+  </nav>
+
+  <main>
+
+    <section>
+      <div class="onglets" role="tablist" aria-label="Game and rules">
+        <button type="button" role="tab" aria-selected="true" aria-controls="panneau-jeu">Game</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="panneau-regles">Rules</button>
+      </div>
+
+      <div id="panneau-jeu" class="mots" role="tabpanel">
+        <fieldset class="niveaux">
+          <legend>Letters</legend>
+          <label><input type="radio" name="option" value="5"><span>5</span></label>
+          <label><input type="radio" name="option" value="6"><span>6</span></label>
+          <label><input type="radio" name="option" value="7"><span>7</span></label>
+        </fieldset>
+        <p class="mots-statut" role="status"></p>
+        <div class="mots-grille"></div>
+        <div class="clavier"></div>
+        <noscript><p>This game needs JavaScript.</p></noscript>
+        <button class="bouton mots-nouvelle" type="button">New game</button>
+        <dl class="score">
+          <div><dt>Wins</dt><dd data-info="victoires">0</dd></div>
+          <div><dt>Losses</dt><dd data-info="defaites">0</dd></div>
+        </dl>
+      </div>
+
+      <div id="panneau-regles" class="regles" role="tabpanel" hidden>
+        <h3>Goal</h3>
+        <p>Find the hidden word. You get one more guess than the word has letters: 6 guesses for 5 letters, 8 for 7.</p>
+        <h3>After each guess</h3>
+        <ul>
+          <li><strong>Filled square:</strong> the letter is in the right spot.</li>
+          <li><strong>Thick border:</strong> the letter is in the word, but somewhere else.</li>
+          <li><strong>Dashed border:</strong> the letter is not in the word, or not any further times.</li>
+        </ul>
+        <p>A repeated letter is only flagged as many times as it appears in the word.</p>
+        <p>Any guess of the right length is accepted, even if it is not a real word.</p>
+        <h3>Controls</h3>
+        <p>Use the on-screen keyboard or your own: Enter submits and Backspace deletes.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Ewen DUFOUR</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hangman · Ewen DUFOUR</title>
+  <meta name="description" content="Guess the word letter by letter, before the drawing is finished.">
+  <meta name="robots" content="noindex">
+  <meta name="color-scheme" content="light dark">
+  <!-- Applies neon mode before first paint to avoid a flash. -->
+  <script>(function(){var r=document.documentElement,q=null,t=null,p=null,ok=/^(violet|vert|orange|bleu|rouge)$/;try{q=new URLSearchParams(location.search);t=q.get("theme");p=q.get("palette")}catch(e){}if(!ok.test(p||""))p=null;try{if(t==="neon")localStorage.setItem("theme","neon");else if(t==="normal")localStorage.removeItem("theme");else t=localStorage.getItem("theme");if(p)localStorage.setItem("palette",p);else p=localStorage.getItem("palette")}catch(e){}if(t==="neon")r.dataset.theme="neon";if(ok.test(p||""))r.dataset.palette=p})()</script>
+  <link rel="stylesheet" href="../../../style.css?v=dev">
+  <script src="../../../theme.js?v=dev" defer></script>
+  <script src="../../../jeux/mots.js?v=dev" defer></script>
+  <script src="../../../jeux/pendu/pendu.js?v=dev" defer></script>
+</head>
+<body>
+
+  <header class="entete-page">
+    <h1>Hangman</h1>
+    <p>Guess the word letter by letter, before the drawing is finished.</p>
+  </header>
+
+  <nav>
+    <a href="../../index.html">Home</a>
+    <a href="../index.html">Games</a>
+    <div class="reglages">
+      <a class="langue" href="../../../jeux/pendu/index.html" hreflang="fr" data-pos="droite" aria-label="Version française">
+        <span lang="fr">FR</span><span>EN</span>
+      </a>
+      <button class="neon-btn" type="button" aria-pressed="false"><svg class="icone" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0l1.8 6.2L16 8l-6.2 1.8L8 16l-1.8-6.2L0 8l6.2-1.8z" fill="currentColor"/></svg> Neon</button>
+      <select class="palette" aria-label="Neon colours">
+        <option value="violet">Purple</option>
+        <option value="vert">Green</option>
+        <option value="orange">Orange</option>
+        <option value="bleu">Blue</option>
+        <option value="rouge">Red</option>
+      </select>
+    </div>
+  </nav>
+
+  <main>
+
+    <section>
+      <div class="onglets" role="tablist" aria-label="Game and rules">
+        <button type="button" role="tab" aria-selected="true" aria-controls="panneau-jeu">Game</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="panneau-regles">Rules</button>
+      </div>
+
+      <div id="panneau-jeu" class="mots" role="tabpanel">
+        <svg class="pendu-dessin" viewBox="0 0 120 130" role="img" aria-label="Hangman drawing">
+          <path class="socle" d="M10 122h70M30 122V10h48v14"/>
+          <circle data-erreur="1" cx="78" cy="35" r="10"/>
+          <path data-erreur="2" d="M78 45v34"/>
+          <path data-erreur="3" d="M78 54l-14 14"/>
+          <path data-erreur="4" d="M78 54l14 14"/>
+          <path data-erreur="5" d="M78 79l-13 18"/>
+          <path data-erreur="6" d="M78 79l13 18"/>
+          <path data-erreur="7" d="M72 33l4 4m0-4l-4 4M80 33l4 4m0-4l-4 4"/>
+        </svg>
+        <p class="mots-statut" role="status"></p>
+        <div class="pendu-mot"></div>
+        <div class="clavier"></div>
+        <noscript><p>This game needs JavaScript.</p></noscript>
+        <button class="bouton mots-nouvelle" type="button">New game</button>
+        <dl class="score">
+          <div><dt>Wins</dt><dd data-info="victoires">0</dd></div>
+          <div><dt>Losses</dt><dd data-info="defaites">0</dd></div>
+        </dl>
+      </div>
+
+      <div id="panneau-regles" class="regles" role="tabpanel" hidden>
+        <h3>Goal</h3>
+        <p>Find the hidden word before making seven mistakes.</p>
+        <h3>How to play</h3>
+        <ul>
+          <li>Suggest a letter with the on-screen keyboard or your own.</li>
+          <li>If it is in the word, it appears in all its positions.</li>
+          <li>If not, a stroke is added to the drawing. At the seventh, you lose and the word is revealed.</li>
+        </ul>
+        <p>Words have 5 to 9 letters. A letter already played does not count twice.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Ewen DUFOUR</p>
+  </footer>
+
+</body>
+</html>

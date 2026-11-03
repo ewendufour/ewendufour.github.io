@@ -671,19 +671,7 @@
   boutonAnnuler.addEventListener("click", annuler);
   if (boutonRanger) boutonRanger.addEventListener("click", ranger);
 
-  // Onglets Jeu / Règles.
-  var onglets = document.querySelectorAll('.onglets [role="tab"]');
-  onglets.forEach(function (onglet) {
-    onglet.addEventListener("click", function () {
-      onglets.forEach(function (o) {
-        var actif = o === onglet;
-        o.setAttribute("aria-selected", actif ? "true" : "false");
-        document.getElementById(o.getAttribute("aria-controls")).hidden = !actif;
-      });
-      placer(false);
-    });
-  });
-
+  // Replace aussi les cartes au retour de l'onglet Règles.
   if (window.ResizeObserver) new ResizeObserver(function () { placer(false); }).observe(plateau);
   else window.addEventListener("resize", function () { placer(false); });
 

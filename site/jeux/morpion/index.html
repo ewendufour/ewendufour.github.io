@@ -40,25 +40,49 @@
 
   <main>
 
-    <section class="morpion">
-      <fieldset class="niveaux">
-        <legend>Difficulté</legend>
-        <label><input type="radio" name="niveau" value="faible"><span>Faible</span></label>
-        <label><input type="radio" name="niveau" value="moyen"><span>Moyen</span></label>
-        <label><input type="radio" name="niveau" value="fort"><span>Fort</span></label>
-      </fieldset>
+    <section>
+      <div class="onglets" role="tablist" aria-label="Jeu et règles">
+        <button type="button" role="tab" aria-selected="true" aria-controls="panneau-jeu">Jeu</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="panneau-regles">Règles</button>
+      </div>
 
-      <p class="morpion-statut" role="status"></p>
-      <div class="grille" role="group" aria-label="Grille de morpion"></div>
-      <noscript><p>Ce jeu a besoin de JavaScript.</p></noscript>
+      <div id="panneau-jeu" class="morpion" role="tabpanel">
+        <fieldset class="niveaux">
+          <legend>Difficulté</legend>
+          <label><input type="radio" name="niveau" value="faible"><span>Faible</span></label>
+          <label><input type="radio" name="niveau" value="moyen"><span>Moyen</span></label>
+          <label><input type="radio" name="niveau" value="fort"><span>Fort</span></label>
+        </fieldset>
 
-      <button class="bouton morpion-nouvelle" type="button">Nouvelle partie</button>
+        <p class="morpion-statut" role="status"></p>
+        <div class="grille" role="group" aria-label="Grille de morpion"></div>
+        <noscript><p>Ce jeu a besoin de JavaScript.</p></noscript>
 
-      <dl class="score">
-        <div><dt>Victoires</dt><dd data-score="victoires">0</dd></div>
-        <div><dt>Nuls</dt><dd data-score="nuls">0</dd></div>
-        <div><dt>Défaites</dt><dd data-score="defaites">0</dd></div>
-      </dl>
+        <button class="bouton morpion-nouvelle" type="button">Nouvelle partie</button>
+
+        <dl class="score">
+          <div><dt>Victoires</dt><dd data-score="victoires">0</dd></div>
+          <div><dt>Nuls</dt><dd data-score="nuls">0</dd></div>
+          <div><dt>Défaites</dt><dd data-score="defaites">0</dd></div>
+        </dl>
+      </div>
+
+      <div id="panneau-regles" class="regles" role="tabpanel" hidden>
+        <h3>But</h3>
+        <p>Aligner trois X, en ligne, en colonne ou en diagonale, avant que l'ordinateur n'aligne trois O.</p>
+        <h3>Déroulement</h3>
+        <ul>
+          <li>Chacun pose son symbole à tour de rôle sur une case libre.</li>
+          <li>Si la grille est pleine sans alignement, c'est un match nul.</li>
+          <li>Le premier joueur change à chaque partie.</li>
+        </ul>
+        <h3>Difficulté</h3>
+        <ul>
+          <li><strong>Faible :</strong> l'ordinateur joue au hasard.</li>
+          <li><strong>Moyen :</strong> il gagne ou te bloque quand il le peut, et joue au hasard sinon.</li>
+          <li><strong>Fort :</strong> il joue parfaitement, donc tu peux au mieux faire match nul.</li>
+        </ul>
+      </div>
     </section>
 
   </main>

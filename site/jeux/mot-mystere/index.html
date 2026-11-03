@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mot mystère · Ewen DUFOUR</title>
+  <meta name="description" content="Trouve le mot caché : chaque essai t'indique où en sont tes lettres.">
+  <meta name="robots" content="noindex">
+  <meta name="color-scheme" content="light dark">
+  <!-- Applique le mode néon avant l'affichage, pour éviter un flash. -->
+  <script>(function(){var r=document.documentElement,q=null,t=null,p=null,ok=/^(violet|vert|orange|bleu|rouge)$/;try{q=new URLSearchParams(location.search);t=q.get("theme");p=q.get("palette")}catch(e){}if(!ok.test(p||""))p=null;try{if(t==="neon")localStorage.setItem("theme","neon");else if(t==="normal")localStorage.removeItem("theme");else t=localStorage.getItem("theme");if(p)localStorage.setItem("palette",p);else p=localStorage.getItem("palette")}catch(e){}if(t==="neon")r.dataset.theme="neon";if(ok.test(p||""))r.dataset.palette=p})()</script>
+  <link rel="stylesheet" href="../../style.css?v=dev">
+  <script src="../../theme.js?v=dev" defer></script>
+  <script src="../mots.js?v=dev" defer></script>
+  <script src="mot-mystere.js?v=dev" defer></script>
+</head>
+<body>
+
+  <header class="entete-page">
+    <h1>Mot mystère</h1>
+    <p>Trouve le mot caché : chaque essai t'indique où en sont tes lettres.</p>
+  </header>
+
+  <nav>
+    <a href="../../index.html">Accueil</a>
+    <a href="../index.html">Jeux</a>
+    <div class="reglages">
+      <a class="langue" href="../../en/games/mystery-word/index.html" hreflang="en" data-pos="gauche" aria-label="English version">
+        <span>FR</span><span lang="en">EN</span>
+      </a>
+      <button class="neon-btn" type="button" aria-pressed="false"><svg class="icone" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0l1.8 6.2L16 8l-6.2 1.8L8 16l-1.8-6.2L0 8l6.2-1.8z" fill="currentColor"/></svg> Néon</button>
+      <select class="palette" aria-label="Couleurs du mode néon">
+        <option value="violet">Violet</option>
+        <option value="vert">Vert</option>
+        <option value="orange">Orange</option>
+        <option value="bleu">Bleu</option>
+        <option value="rouge">Rouge</option>
+      </select>
+    </div>
+  </nav>
+
+  <main>
+
+    <section>
+      <div class="onglets" role="tablist" aria-label="Jeu et règles">
+        <button type="button" role="tab" aria-selected="true" aria-controls="panneau-jeu">Jeu</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="panneau-regles">Règles</button>
+      </div>
+
+      <div id="panneau-jeu" class="mots" role="tabpanel">
+        <fieldset class="niveaux">
+          <legend>Lettres</legend>
+          <label><input type="radio" name="option" value="5"><span>5</span></label>
+          <label><input type="radio" name="option" value="6"><span>6</span></label>
+          <label><input type="radio" name="option" value="7"><span>7</span></label>
+        </fieldset>
+        <p class="mots-statut" role="status"></p>
+        <div class="mots-grille"></div>
+        <div class="clavier"></div>
+        <noscript><p>Ce jeu a besoin de JavaScript.</p></noscript>
+        <button class="bouton mots-nouvelle" type="button">Nouvelle partie</button>
+        <dl class="score">
+          <div><dt>Victoires</dt><dd data-info="victoires">0</dd></div>
+          <div><dt>Défaites</dt><dd data-info="defaites">0</dd></div>
+        </dl>
+      </div>
+
+      <div id="panneau-regles" class="regles" role="tabpanel" hidden>
+        <h3>But</h3>
+        <p>Trouver le mot caché. Tu as droit à un essai de plus que le mot n'a de lettres : 6 essais pour 5 lettres, 8 pour 7.</p>
+        <h3>Après chaque essai</h3>
+        <ul>
+          <li><strong>Case pleine :</strong> la lettre est bien placée.</li>
+          <li><strong>Cadre épais :</strong> la lettre est dans le mot, mais ailleurs.</li>
+          <li><strong>Cadre en pointillés :</strong> la lettre n'est pas dans le mot, ou plus aucune autre fois.</li>
+        </ul>
+        <p>Une lettre répétée n'est signalée qu'autant de fois qu'elle apparaît dans le mot.</p>
+        <p>Les mots sont sans accents. Tout essai de la bonne longueur est accepté, même s'il n'existe pas.</p>
+        <h3>Commandes</h3>
+        <p>Utilise le clavier à l'écran ou celui de l'ordinateur : Entrée valide et Retour arrière efface.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Ewen DUFOUR</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pendu · Ewen DUFOUR</title>
+  <meta name="description" content="Devine le mot lettre par lettre, avant que le dessin ne soit terminé.">
+  <meta name="robots" content="noindex">
+  <meta name="color-scheme" content="light dark">
+  <!-- Applique le mode néon avant l'affichage, pour éviter un flash. -->
+  <script>(function(){var r=document.documentElement,q=null,t=null,p=null,ok=/^(violet|vert|orange|bleu|rouge)$/;try{q=new URLSearchParams(location.search);t=q.get("theme");p=q.get("palette")}catch(e){}if(!ok.test(p||""))p=null;try{if(t==="neon")localStorage.setItem("theme","neon");else if(t==="normal")localStorage.removeItem("theme");else t=localStorage.getItem("theme");if(p)localStorage.setItem("palette",p);else p=localStorage.getItem("palette")}catch(e){}if(t==="neon")r.dataset.theme="neon";if(ok.test(p||""))r.dataset.palette=p})()</script>
+  <link rel="stylesheet" href="../../style.css?v=dev">
+  <script src="../../theme.js?v=dev" defer></script>
+  <script src="../mots.js?v=dev" defer></script>
+  <script src="pendu.js?v=dev" defer></script>
+</head>
+<body>
+
+  <header class="entete-page">
+    <h1>Pendu</h1>
+    <p>Devine le mot lettre par lettre, avant que le dessin ne soit terminé.</p>
+  </header>
+
+  <nav>
+    <a href="../../index.html">Accueil</a>
+    <a href="../index.html">Jeux</a>
+    <div class="reglages">
+      <a class="langue" href="../../en/games/hangman/index.html" hreflang="en" data-pos="gauche" aria-label="English version">
+        <span>FR</span><span lang="en">EN</span>
+      </a>
+      <button class="neon-btn" type="button" aria-pressed="false"><svg class="icone" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0l1.8 6.2L16 8l-6.2 1.8L8 16l-1.8-6.2L0 8l6.2-1.8z" fill="currentColor"/></svg> Néon</button>
+      <select class="palette" aria-label="Couleurs du mode néon">
+        <option value="violet">Violet</option>
+        <option value="vert">Vert</option>
+        <option value="orange">Orange</option>
+        <option value="bleu">Bleu</option>
+        <option value="rouge">Rouge</option>
+      </select>
+    </div>
+  </nav>
+
+  <main>
+
+    <section>
+      <div class="onglets" role="tablist" aria-label="Jeu et règles">
+        <button type="button" role="tab" aria-selected="true" aria-controls="panneau-jeu">Jeu</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="panneau-regles">Règles</button>
+      </div>
+
+      <div id="panneau-jeu" class="mots" role="tabpanel">
+        <svg class="pendu-dessin" viewBox="0 0 120 130" role="img" aria-label="Dessin du pendu">
+          <path class="socle" d="M10 122h70M30 122V10h48v14"/>
+          <circle data-erreur="1" cx="78" cy="35" r="10"/>
+          <path data-erreur="2" d="M78 45v34"/>
+          <path data-erreur="3" d="M78 54l-14 14"/>
+          <path data-erreur="4" d="M78 54l14 14"/>
+          <path data-erreur="5" d="M78 79l-13 18"/>
+          <path data-erreur="6" d="M78 79l13 18"/>
+          <path data-erreur="7" d="M72 33l4 4m0-4l-4 4M80 33l4 4m0-4l-4 4"/>
+        </svg>
+        <p class="mots-statut" role="status"></p>
+        <div class="pendu-mot"></div>
+        <div class="clavier"></div>
+        <noscript><p>Ce jeu a besoin de JavaScript.</p></noscript>
+        <button class="bouton mots-nouvelle" type="button">Nouvelle partie</button>
+        <dl class="score">
+          <div><dt>Victoires</dt><dd data-info="victoires">0</dd></div>
+          <div><dt>Défaites</dt><dd data-info="defaites">0</dd></div>
+        </dl>
+      </div>
+
+      <div id="panneau-regles" class="regles" role="tabpanel" hidden>
+        <h3>But</h3>
+        <p>Trouver le mot caché avant de faire sept erreurs.</p>
+        <h3>Déroulement</h3>
+        <ul>
+          <li>Propose une lettre avec le clavier à l'écran ou celui de l'ordinateur.</li>
+          <li>Si elle est dans le mot, elle apparaît à toutes ses places.</li>
+          <li>Sinon, un trait s'ajoute au dessin. Au septième, la partie est perdue et le mot est révélé.</li>
+        </ul>
+        <p>Les mots font de 5 à 9 lettres et sont sans accents. Une lettre déjà jouée ne compte pas deux fois.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Ewen DUFOUR</p>
+  </footer>
+
+</body>
+</html>

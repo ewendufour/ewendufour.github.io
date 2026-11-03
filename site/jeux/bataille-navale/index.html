@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bataille navale · Ewen DUFOUR</title>
+  <meta name="description" content="Bataille navale contre un ordinateur qui ne triche pas.">
+  <meta name="robots" content="noindex">
+  <meta name="color-scheme" content="light dark">
+  <!-- Applique le mode néon avant l'affichage, pour éviter un flash. -->
+  <script>(function(){var r=document.documentElement,q=null,t=null,p=null,ok=/^(violet|vert|orange|bleu|rouge)$/;try{q=new URLSearchParams(location.search);t=q.get("theme");p=q.get("palette")}catch(e){}if(!ok.test(p||""))p=null;try{if(t==="neon")localStorage.setItem("theme","neon");else if(t==="normal")localStorage.removeItem("theme");else t=localStorage.getItem("theme");if(p)localStorage.setItem("palette",p);else p=localStorage.getItem("palette")}catch(e){}if(t==="neon")r.dataset.theme="neon";if(ok.test(p||""))r.dataset.palette=p})()</script>
+  <link rel="stylesheet" href="../../style.css?v=dev">
+  <script src="../../theme.js?v=dev" defer></script>
+  <script src="bataille.js?v=dev" defer></script>
+</head>
+<body>
+
+  <header class="entete-page">
+    <h1>Bataille navale</h1>
+    <p>Place ta flotte, puis coule celle de l'ordinateur. Il ne voit jamais tes navires.</p>
+  </header>
+
+  <nav>
+    <a href="../../index.html">Accueil</a>
+    <a href="../index.html">Jeux</a>
+    <div class="reglages">
+      <a class="langue" href="../../en/games/battleship/index.html" hreflang="en" data-pos="gauche" aria-label="English version">
+        <span>FR</span><span lang="en">EN</span>
+      </a>
+      <button class="neon-btn" type="button" aria-pressed="false"><svg class="icone" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0l1.8 6.2L16 8l-6.2 1.8L8 16l-1.8-6.2L0 8l6.2-1.8z" fill="currentColor"/></svg> Néon</button>
+      <select class="palette" aria-label="Couleurs du mode néon">
+        <option value="violet">Violet</option>
+        <option value="vert">Vert</option>
+        <option value="orange">Orange</option>
+        <option value="bleu">Bleu</option>
+        <option value="rouge">Rouge</option>
+      </select>
+    </div>
+  </nav>
+
+  <main>
+
+    <section>
+      <div class="onglets" role="tablist" aria-label="Jeu et règles">
+        <button type="button" role="tab" aria-selected="true" aria-controls="panneau-jeu">Jeu</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="panneau-regles">Règles</button>
+      </div>
+
+      <div id="panneau-jeu" class="naval" role="tabpanel">
+        <div class="naval-placement">
+          <button class="bouton naval-pivoter" type="button">Horizontal</button>
+          <button class="bouton naval-hasard" type="button">Au hasard</button>
+          <button class="bouton naval-effacer" type="button">Effacer</button>
+          <button class="bouton bouton-plein naval-commencer" type="button">Commencer</button>
+        </div>
+        <p class="naval-statut" role="status"></p>
+        <noscript><p>Ce jeu a besoin de JavaScript.</p></noscript>
+
+        <div class="naval-mers">
+          <div class="naval-panneau naval-adverse" hidden>
+            <h3>Flotte adverse</h3>
+            <div class="mer mer-ordi" role="group" aria-label="Grille de l'ordinateur"></div>
+            <ul class="flotte flotte-ordi"></ul>
+          </div>
+          <div class="naval-panneau">
+            <h3>Ta flotte</h3>
+            <div class="mer mer-joueur" role="group" aria-label="Ta grille"></div>
+            <ul class="flotte flotte-joueur"></ul>
+          </div>
+        </div>
+
+        <div class="naval-bas">
+          <button class="bouton naval-nouvelle" type="button">Nouvelle partie</button>
+          <dl class="score">
+            <div><dt>Tirs</dt><dd data-info="tirs">0</dd></div>
+            <div><dt>Victoires</dt><dd data-info="victoires">0</dd></div>
+            <div><dt>Défaites</dt><dd data-info="defaites">0</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div id="panneau-regles" class="regles" role="tabpanel" hidden>
+        <h3>But</h3>
+        <p>Couler les cinq navires de l'ordinateur avant qu'il ne coule les tiens.</p>
+        <h3>Placement</h3>
+        <ul>
+          <li>Chaque camp place un porte-avions (5 cases), un croiseur (4), un contre-torpilleur (3), un sous-marin (3) et un torpilleur (2).</li>
+          <li>Touche une case pour poser le navire indiqué. « Horizontal » ou la touche R change son sens.</li>
+          <li>Touche un navire déjà posé pour le reprendre.</li>
+          <li>Les navires ne peuvent pas se chevaucher, mais ils peuvent se toucher.</li>
+        </ul>
+        <h3>Combat</h3>
+        <ul>
+          <li>Chacun tire une fois par tour, même après un touché. Le premier joueur change à chaque partie.</li>
+          <li>Un point marque un tir raté, une croix un touché, et une case pleine un navire coulé.</li>
+          <li>Quand un navire coule, son nom et ses cases sont annoncés aux deux camps.</li>
+        </ul>
+        <h3>L'ordinateur ne triche pas</h3>
+        <p>Il ne connaît que les réponses à ses propres tirs : raté, touché ou coulé. Il en déduit où tes navires peuvent encore se trouver et s'acharne sur un navire touché, sans jamais voir ta grille. À la fin, ses navires restants sont révélés.</p>
+        <h3>Clavier</h3>
+        <p>Les flèches se déplacent dans une grille, et Entrée pose un navire ou tire.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Ewen DUFOUR</p>
+  </footer>
+
+</body>
+</html>
