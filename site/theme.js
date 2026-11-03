@@ -3,7 +3,7 @@
 // Au changement de langue, deux informations passent dans l'adresse :
 //   ?theme=neon|normal : en local (file://), chaque page a son propre
 //                        stockage, le réglage serait sinon perdu ;
-//   &palette=…         : palette néon choisie (violet, vert, orange, bleu) ;
+//   &palette=…         : palette néon choisie (violet, vert, orange, bleu, rouge) ;
 //   &pos=i:f           : section affichée (indice i, -1 pour l'en-tête) et
 //                        proportion f déjà parcourue, pour retrouver le même
 //                        endroit dans l'autre langue (les textes n'ont pas la

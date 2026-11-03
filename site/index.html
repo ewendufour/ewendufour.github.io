@@ -9,7 +9,7 @@
   <link rel="alternate" hreflang="fr" href="https://ewendufour.fr/">
   <link rel="alternate" hreflang="en" href="https://ewendufour.fr/en/">
   <!-- Applique le mode néon avant l'affichage, pour éviter un flash. -->
-  <script>(function(){var r=document.documentElement,q=null,t=null,p=null,ok=/^(violet|vert|orange|bleu)$/;try{q=new URLSearchParams(location.search);t=q.get("theme");p=q.get("palette")}catch(e){}if(!ok.test(p||""))p=null;try{if(t==="neon")localStorage.setItem("theme","neon");else if(t==="normal")localStorage.removeItem("theme");else t=localStorage.getItem("theme");if(p)localStorage.setItem("palette",p);else p=localStorage.getItem("palette")}catch(e){}if(t==="neon")r.dataset.theme="neon";if(ok.test(p||""))r.dataset.palette=p})()</script>
+  <script>(function(){var r=document.documentElement,q=null,t=null,p=null,ok=/^(violet|vert|orange|bleu|rouge)$/;try{q=new URLSearchParams(location.search);t=q.get("theme");p=q.get("palette")}catch(e){}if(!ok.test(p||""))p=null;try{if(t==="neon")localStorage.setItem("theme","neon");else if(t==="normal")localStorage.removeItem("theme");else t=localStorage.getItem("theme");if(p)localStorage.setItem("palette",p);else p=localStorage.getItem("palette")}catch(e){}if(t==="neon")r.dataset.theme="neon";if(ok.test(p||""))r.dataset.palette=p})()</script>
   <link rel="stylesheet" href="style.css?v=dev">
   <script src="theme.js?v=dev" defer></script>
 </head>
@@ -43,14 +43,11 @@
       </a>
       <button class="neon-btn" type="button" aria-pressed="false"><svg class="icone" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0l1.8 6.2L16 8l-6.2 1.8L8 16l-1.8-6.2L0 8l6.2-1.8z" fill="currentColor"/></svg> Néon</button>
       <select class="palette" aria-label="Couleurs du mode néon">
-        <optgroup label="Violet ↔ Vert">
-          <option value="violet">Violet</option>
-          <option value="vert">Vert</option>
-        </optgroup>
-        <optgroup label="Orange ↔ Bleu">
-          <option value="orange">Orange</option>
-          <option value="bleu">Bleu</option>
-        </optgroup>
+        <option value="violet">Violet</option>
+        <option value="vert">Vert</option>
+        <option value="orange">Orange</option>
+        <option value="bleu">Bleu</option>
+        <option value="rouge">Rouge</option>
       </select>
     </div>
   </nav>

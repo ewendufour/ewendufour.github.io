@@ -450,10 +450,11 @@ nav { align-items: center; }
    Mêmes polices et tailles que le mode normal : seules les couleurs,
    le fond et les halos changent.
 
-   Quatre palettes, par paires complémentaires : la couleur majeure de
-   l'une est la couleur mineure de l'autre.
+   Cinq palettes. Les quatre premières vont par paires complémentaires :
+   la couleur majeure de l'une est la couleur mineure de l'autre.
      violet ↔ vert   (vert = le cyan-vert du thème d'origine)
      orange ↔ bleu
+     rouge           (rouge sur fond noir, sans complémentaire)
    --majeur / --majeur-rgb : couleur principale (halos, boutons, frise)
    --majeur-vif            : version claire (nom, liens)
    --mineur / --mineur-rgb : couleur secondaire (statut, losanges)
@@ -510,6 +511,17 @@ nav { align-items: center; }
   --texte: #e1eaf5;
   --discret: #8497ac;
   --bordure: #1b2a44;
+}
+
+/* Rouge : rouge sur fond noir, mineur gris clair (le noir serait invisible). */
+:root[data-theme="neon"][data-palette="rouge"] {
+  --majeur: #ff2d3d;  --majeur-rgb: 255, 45, 61;    --majeur-vif: #ff7a82;
+  --mineur: #d9c8c8;  --mineur-rgb: 217, 200, 200;
+  --fond: #080404;
+  --surface: #140a0a;
+  --texte: #f5e6e6;
+  --discret: #ac8a8a;
+  --bordure: #3a1a1a;
 }
 
 [data-theme="neon"] body { background: transparent; }
@@ -650,8 +662,7 @@ nav { align-items: center; }
   box-shadow: 0 0 10px rgba(var(--majeur-rgb), 0.35);
 }
 
-[data-theme="neon"] .palette option,
-[data-theme="neon"] .palette optgroup {
+[data-theme="neon"] .palette option {
   color: var(--texte);
   background: var(--surface);
 }
