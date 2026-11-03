@@ -10,8 +10,8 @@
   <link rel="alternate" hreflang="en" href="https://ewendufour.fr/en/">
   <!-- Applique le mode néon avant l'affichage, pour éviter un flash. -->
   <script>(function(){var r=document.documentElement,q=null,t=null,p=null,ok=/^(violet|vert|orange|bleu)$/;try{q=new URLSearchParams(location.search);t=q.get("theme");p=q.get("palette")}catch(e){}if(!ok.test(p||""))p=null;try{if(t==="neon")localStorage.setItem("theme","neon");else if(t==="normal")localStorage.removeItem("theme");else t=localStorage.getItem("theme");if(p)localStorage.setItem("palette",p);else p=localStorage.getItem("palette")}catch(e){}if(t==="neon")r.dataset.theme="neon";if(ok.test(p||""))r.dataset.palette=p})()</script>
-  <link rel="stylesheet" href="style.css">
-  <script src="theme.js" defer></script>
+  <link rel="stylesheet" href="style.css?v=dev">
+  <script src="theme.js?v=dev" defer></script>
 </head>
 <body>
 

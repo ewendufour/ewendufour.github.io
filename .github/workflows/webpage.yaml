@@ -18,6 +18,13 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      # Ajoute l'identifiant du commit aux adresses du CSS et du JS
+      # (style.css?v=dev → style.css?v=<commit>) : chaque déploiement force
+      # les navigateurs à recharger ces fichiers au lieu d'utiliser leur cache.
+      - name: Version des fichiers CSS et JS
+        run: |
+          grep -rl '?v=dev' site --include='*.html' | xargs sed -i "s/?v=dev/?v=${GITHUB_SHA::7}/g"
+          grep -rn '?v=' site --include='*.html'
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
