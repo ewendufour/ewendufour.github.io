@@ -232,9 +232,11 @@
 
   var restaurer = function (s) {
     s.piles.forEach(function (liste, i) {
+      var pioche = etat.piles[i].type === "pioche";
       etat.piles[i].cartes = liste.map(function (e) {
         var c = cartes[e[0]];
-        c.face = !!e[1];
+        // La pioche est toujours cachée, même dans une ancienne sauvegarde.
+        c.face = !pioche && !!e[1];
         return c;
       });
     });
